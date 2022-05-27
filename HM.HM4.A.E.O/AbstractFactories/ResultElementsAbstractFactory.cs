@@ -13,6 +13,7 @@
     using HM.HM4.A.E.O.Factories.ResultElements.ScenarioUnderutilizations;
     using HM.HM4.A.E.O.Factories.ResultElements.ScenarioUnutilizedTimes;
     using HM.HM4.A.E.O.Factories.ResultElements.ScenarioUtilizedTimes;
+    using HM.HM4.A.E.O.Factories.ResultElements.Sets;
     using HM.HM4.A.E.O.Factories.ResultElements.SurgeonDayAssignments;
     using HM.HM4.A.E.O.Factories.ResultElements.SurgeonDayScenarioCumulativeNumberPatients;
     using HM.HM4.A.E.O.Factories.ResultElements.SurgeonNumberAssignedOperatingRooms;
@@ -31,6 +32,7 @@
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.ScenarioUnderutilizations;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.ScenarioUnutilizedTimes;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.ScenarioUtilizedTimes;
+    using HM.HM4.A.E.O.InterfacesFactories.ResultElements.Sets;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.SurgeonDayAssignments;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.SurgeonDayScenarioCumulativeNumberPatients;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.SurgeonNumberAssignedOperatingRooms;
