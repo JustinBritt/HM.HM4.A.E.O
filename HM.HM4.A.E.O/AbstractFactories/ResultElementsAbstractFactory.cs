@@ -230,6 +230,24 @@
             return factory;
         }
 
+        public IS2ResultElementFactory CreateS2ResultElementFactory()
+        {
+            IS2ResultElementFactory factory = null;
+
+            try
+            {
+                factory = new S2ResultElementFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public ISurgeonNumberAssignedOperatingRoomsResultElementFactory CreateSurgeonNumberAssignedOperatingRoomsResultElementFactory()
         {
             ISurgeonNumberAssignedOperatingRoomsResultElementFactory factory = null;

@@ -41,6 +41,8 @@
 
         IS1ResultElementFactory CreateS1ResultElementFactory();
 
+        IS2ResultElementFactory CreateS2ResultElementFactory();
+
         ISurgeonNumberAssignedOperatingRoomsResultElementFactory CreateSurgeonNumberAssignedOperatingRoomsResultElementFactory();
 
         ISurgeonNumberAssignedWeekdaysResultElementFactory CreateSurgeonNumberAssignedWeekdaysResultElementFactory();
