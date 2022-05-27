@@ -13,6 +13,7 @@
     using HM.HM4.A.E.O.InterfacesFactories.Results.ScenarioUnderutilizations;
     using HM.HM4.A.E.O.InterfacesFactories.Results.ScenarioUnutilizedTimes;
     using HM.HM4.A.E.O.InterfacesFactories.Results.ScenarioUtilizedTimes;
+    using HM.HM4.A.E.O.InterfacesFactories.Results.Sets;
     using HM.HM4.A.E.O.InterfacesFactories.Results.SurgeonDayAssignments;
     using HM.HM4.A.E.O.InterfacesFactories.Results.SurgeonDayScenarioCumulativeNumberPatients;
     using HM.HM4.A.E.O.InterfacesFactories.Results.SurgeonNumberAssignedOperatingRooms;
