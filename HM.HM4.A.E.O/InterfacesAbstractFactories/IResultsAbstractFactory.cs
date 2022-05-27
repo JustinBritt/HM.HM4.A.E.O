@@ -43,6 +43,8 @@
 
         IOverallWallTimeFactory CreateOverallWallTimeFactory();
 
+        IS1Factory CreateS1Factory();
+
         IScenarioNumberPatientsFactory CreateScenarioNumberPatientsFactory();
 
         IScenarioTotalTimesFactory CreateScenarioTotalTimesFactory();

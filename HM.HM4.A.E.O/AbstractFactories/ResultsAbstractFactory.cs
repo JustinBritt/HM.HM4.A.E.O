@@ -220,6 +220,24 @@
             return factory;
         }
 
+        public IS1Factory CreateS1Factory()
+        {
+            IS1Factory factory = null;
+
+            try
+            {
+                factory = new S1Factory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IScenarioNumberPatientsFactory CreateScenarioNumberPatientsFactory()
         {
             IScenarioNumberPatientsFactory factory = null;
