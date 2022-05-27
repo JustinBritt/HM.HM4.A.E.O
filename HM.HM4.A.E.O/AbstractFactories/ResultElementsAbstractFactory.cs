@@ -122,6 +122,42 @@
             return factory;
         }
 
+        public IS1ResultElementFactory CreateS1ResultElementFactory()
+        {
+            IS1ResultElementFactory factory = null;
+
+            try
+            {
+                factory = new S1ResultElementFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
+        public IS2ResultElementFactory CreateS2ResultElementFactory()
+        {
+            IS2ResultElementFactory factory = null;
+
+            try
+            {
+                factory = new S2ResultElementFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IScenarioNumberPatientsResultElementFactory CreateScenarioNumberPatientsResultElementFactory()
         {
             IScenarioNumberPatientsResultElementFactory factory = null;
@@ -201,42 +237,6 @@
             try
             {
                 factory = new ScenarioUtilizedTimesResultElementFactory();
-            }
-            catch (Exception exception)
-            {
-                this.Log.Error(
-                    exception.Message,
-                    exception);
-            }
-
-            return factory;
-        }
-
-        public IS1ResultElementFactory CreateS1ResultElementFactory()
-        {
-            IS1ResultElementFactory factory = null;
-
-            try
-            {
-                factory = new S1ResultElementFactory();
-            }
-            catch (Exception exception)
-            {
-                this.Log.Error(
-                    exception.Message,
-                    exception);
-            }
-
-            return factory;
-        }
-
-        public IS2ResultElementFactory CreateS2ResultElementFactory()
-        {
-            IS2ResultElementFactory factory = null;
-
-            try
-            {
-                factory = new S2ResultElementFactory();
             }
             catch (Exception exception)
             {

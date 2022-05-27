@@ -29,6 +29,10 @@
 
         IIHatResultElementFactory CreateIHatResultElementFactory();
 
+        IS1ResultElementFactory CreateS1ResultElementFactory();
+
+        IS2ResultElementFactory CreateS2ResultElementFactory();
+
         IScenarioNumberPatientsResultElementFactory CreateScenarioNumberPatientsResultElementFactory();
 
         IScenarioTotalTimesResultElementFactory CreateScenarioTotalTimesResultElementFactory();
@@ -38,10 +42,6 @@
         IScenarioUnutilizedTimesResultElementFactory CreateScenarioUnutilizedTimesResultElementFactory();
 
         IScenarioUtilizedTimesResultElementFactory CreateScenarioUtilizedTimesResultElementFactory();
-
-        IS1ResultElementFactory CreateS1ResultElementFactory();
-
-        IS2ResultElementFactory CreateS2ResultElementFactory();
 
         ISurgeonNumberAssignedOperatingRoomsResultElementFactory CreateSurgeonNumberAssignedOperatingRoomsResultElementFactory();
 
