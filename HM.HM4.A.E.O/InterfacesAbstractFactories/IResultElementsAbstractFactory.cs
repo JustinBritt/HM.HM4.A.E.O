@@ -39,6 +39,8 @@
 
         IScenarioUtilizedTimesResultElementFactory CreateScenarioUtilizedTimesResultElementFactory();
 
+        IS1ResultElementFactory CreateS1ResultElementFactory();
+
         ISurgeonNumberAssignedOperatingRoomsResultElementFactory CreateSurgeonNumberAssignedOperatingRoomsResultElementFactory();
 
         ISurgeonNumberAssignedWeekdaysResultElementFactory CreateSurgeonNumberAssignedWeekdaysResultElementFactory();
