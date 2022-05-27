@@ -36,6 +36,8 @@
 
   <ItemGroup>
     <Folder Include="Classes\Calculations\Sets\" />
+    <Folder Include="Classes\Results\Sets\" />
     <Folder Include="Interfaces\Calculations\Sets\" />
+    <Folder Include="Interfaces\Results\Sets\" />
   </ItemGroup>
 </Project>
