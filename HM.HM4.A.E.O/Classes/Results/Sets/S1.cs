@@ -5,6 +5,8 @@
 
     using log4net;
 
+    using Hl7.Fhir.Model;
+
     using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.ResultElements.Sets;
     using HM.HM4.A.E.O.Interfaces.Results.Sets;
@@ -37,6 +39,13 @@
             {
                 return false;
             }
+        }
+
+        public ImmutableList<Location> GetValueForOutputContext()
+        {
+            return this.Value
+                .Select(i => i.rIndexElement.Value)
+                .ToImmutableList();
         }
     }
 }
