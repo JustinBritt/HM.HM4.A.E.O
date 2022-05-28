@@ -16,7 +16,6 @@
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioTotalTimes;
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioUnutilizedTimes;
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioUtilizedTimes;
-    using HM.HM4.A.E.O.Interfaces.Results.Sets;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonScenarioNumberPatients;
 
@@ -85,6 +84,20 @@
                 HM4Model.r,
                 HM4Model.Δ,
                 x)
+                .GetValueForOutputContext();
+
+            // S2
+            this.S2 = calculationsAbstractFactory.CreateS2CalculationFactory().Create().Calculate(
+                resultElementsAbstractFactory.CreateS2ResultElementFactory(),
+                resultsAbstractFactory.CreateS2Factory(),
+                HM4Model.d,
+                HM4Model.d,
+                HM4Model.r,
+                HM4Model.t,
+                HM4Model.rdd,
+                HM4Model.W,
+                x,
+                HM4Model.Δ)
                 .GetValueForOutputContext();
 
             // SurgeonNumberAssignedOperatingRooms
@@ -333,6 +346,8 @@
         public TimeSpan OverallWallTime { get; }
 
         public ImmutableList<Location> S1 { get; }
+
+        public ImmutableList<Tuple<Location, INullableValue<int>, INullableValue<int>>> S2 { get; }
 
         public ImmutableList<Tuple<INullableValue<int>, INullableValue<int>>> ScenarioNumberPatients { get; }
 
