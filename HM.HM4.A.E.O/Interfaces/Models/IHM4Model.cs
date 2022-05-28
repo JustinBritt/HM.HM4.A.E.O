@@ -5,6 +5,7 @@
     using HM.HM4.A.E.O.Interfaces.CrossJoins;
     using HM.HM4.A.E.O.Interfaces.Indices;
     using HM.HM4.A.E.O.Interfaces.Parameters.MaximumNumberRecoveryWardBeds;
+    using HM.HM4.A.E.O.Interfaces.Parameters.NumberDaysPerWeek;
     using HM.HM4.A.E.O.Interfaces.Parameters.ScenarioProbabilities;
     using HM.HM4.A.E.O.Interfaces.Parameters.SurgeonDayScenarioLengthOfStayProbabilities;
     using HM.HM4.A.E.O.Interfaces.Parameters.SurgeonLengthOfStayMaximums;
@@ -58,6 +59,8 @@
         In n { get; }
 
         Ip p { get; }
+
+        IW W { get; }
 
         IΔ Δ { get; }
 
