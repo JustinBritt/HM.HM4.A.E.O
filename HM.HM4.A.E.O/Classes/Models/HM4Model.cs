@@ -114,6 +114,13 @@
                 .SelectMany(b => this.t.Value, (a, b) => crossJoinElementsAbstractFactory.CreatedtCrossJoinElementFactory().Create(a, b))
                 .ToImmutableList());
 
+            // rdd
+            this.rdd = crossJoinsAbstractFactory.CreaterddFactory().Create(
+                this.r.Value
+                .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreaterdCrossJoinElementFactory().Create(a, b))
+                .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreaterddCrossJoinElementFactory().Create(a.rIndexElement, a.dIndexElement, b))
+                .ToImmutableList());
+
             // rt
             this.rt = crossJoinsAbstractFactory.CreatertFactory().Create(
                 this.r.Value
@@ -505,6 +512,8 @@
         public IΛ Λ { get; }
 
         public Idt dt { get; }
+
+        public Irdd rdd { get; }
 
         public Irt rt { get; }
 

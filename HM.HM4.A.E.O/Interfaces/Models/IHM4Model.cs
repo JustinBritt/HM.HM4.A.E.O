@@ -31,6 +31,8 @@
 
         IΛ Λ { get; }
 
+        Irdd rdd { get; }
+
         Irt rt { get; }
 
         IslΛ slΛ { get; }
