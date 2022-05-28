@@ -34,6 +34,24 @@
             return factory;
         }
 
+        public IrdFactory CreaterdFactory()
+        {
+            IrdFactory factory = null;
+
+            try
+            {
+                factory = new rdFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IrtFactory CreatertFactory()
         {
             IrtFactory factory = null;
