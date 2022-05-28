@@ -1,9 +1,12 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Results.Sets
 {
+    using System;
     using System.Collections.Immutable;
     using System.Linq;
 
     using log4net;
+
+    using Hl7.Fhir.Model;
 
     using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.ResultElements.Sets;
@@ -39,6 +42,17 @@
             {
                 return false;
             }
+        }
+
+        public ImmutableList<Tuple<Location, INullableValue<int>, INullableValue<int>>> GetValueForOutputContext()
+        {
+            return this.Value
+                .Select(
+                i => Tuple.Create(
+                    i.rIndexElement.Value,
+                    (INullableValue<int>)i.d1IndexElement.Value,
+                    (INullableValue<int>)i.d2IndexElement.Value))
+                .ToImmutableList();
         }
     }
 }
