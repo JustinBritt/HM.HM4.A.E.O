@@ -16,6 +16,7 @@
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioTotalTimes;
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioUnutilizedTimes;
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioUtilizedTimes;
+    using HM.HM4.A.E.O.Interfaces.Results.Sets;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonScenarioNumberPatients;
 
@@ -76,6 +77,15 @@
             this.SurgeonOperatingRoomDayAssignments = x
                 .GetValueForOutputContext(
                 dependenciesAbstractFactory.CreateNullableValueFactory());
+
+            // S1
+            this.S1 = calculationsAbstractFactory.CreateS1CalculationFactory().Create().Calculate(
+                resultElementsAbstractFactory.CreateS1ResultElementFactory(),
+                resultsAbstractFactory.CreateS1Factory(),
+                HM4Model.r,
+                x,
+                HM4Model.Δ)
+                .GetValueForOutputContext();
 
             // SurgeonNumberAssignedOperatingRooms
             this.SurgeonNumberAssignedOperatingRooms = calculationsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsCalculationFactory().Create().Calculate(
@@ -321,6 +331,8 @@
         public INullableValue<decimal> ObjectiveValue { get; }
 
         public TimeSpan OverallWallTime { get; }
+
+        public ImmutableList<Location> S1 { get; }
 
         public ImmutableList<Tuple<INullableValue<int>, INullableValue<int>>> ScenarioNumberPatients { get; }
 
