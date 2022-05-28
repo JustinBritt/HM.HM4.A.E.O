@@ -13,7 +13,7 @@
             IS1ResultElementFactory S1ResultElementFactory,
             IS1Factory S1Factory,
             Ir r,
-            Ix x,
-            IΔ Δ);
+            IΔ Δ,
+            Ix x);
     }
 }

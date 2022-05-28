@@ -83,8 +83,8 @@
                 resultElementsAbstractFactory.CreateS1ResultElementFactory(),
                 resultsAbstractFactory.CreateS1Factory(),
                 HM4Model.r,
-                x,
-                HM4Model.Δ)
+                HM4Model.Δ,
+                x)
                 .GetValueForOutputContext();
 
             // SurgeonNumberAssignedOperatingRooms
