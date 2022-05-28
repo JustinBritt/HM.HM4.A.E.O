@@ -96,8 +96,8 @@
                 HM4Model.t,
                 HM4Model.rdd,
                 HM4Model.W,
-                x,
-                HM4Model.Δ)
+                HM4Model.Δ,
+                x)
                 .GetValueForOutputContext();
 
             // SurgeonNumberAssignedOperatingRooms

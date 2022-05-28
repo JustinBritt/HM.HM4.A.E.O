@@ -33,8 +33,8 @@
             It t,
             Irdd rdd,
             IW W,
-            Ix x,
-            IΔ Δ)
+            IΔ Δ,
+            Ix x)
         {
             return S2Factory.Create(
                 rdd.Value
