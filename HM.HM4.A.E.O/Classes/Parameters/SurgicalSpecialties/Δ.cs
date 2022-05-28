@@ -21,6 +21,24 @@
 
         public ImmutableList<IΔParameterElement> Value { get; }
 
+        public IjIndexElement GetSurgicalSpecialtyOfSurgeon(
+            IsIndexElement sIndexElement)
+        {
+            IjIndexElement value = null;
+
+            foreach (IΔParameterElement ΔParameterElement in this.Value)
+            {
+                if (this.IsSurgeonMemberOfSurgicalSpecialty(
+                    ΔParameterElement.jIndexElement,
+                    sIndexElement))
+                {
+                    value = ΔParameterElement.jIndexElement;
+                }
+            }
+
+            return value;
+        }
+
         public bool IsSurgeonMemberOfSurgicalSpecialty(
             IjIndexElement jIndexElement,
             IsIndexElement sIndexElement)

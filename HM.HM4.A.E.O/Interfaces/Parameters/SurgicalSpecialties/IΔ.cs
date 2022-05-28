@@ -9,6 +9,9 @@
     {
         ImmutableList<IΔParameterElement> Value { get; }
 
+        IjIndexElement GetSurgicalSpecialtyOfSurgeon(
+            IsIndexElement sIndexElement);
+
         bool IsSurgeonMemberOfSurgicalSpecialty(
             IjIndexElement jIndexElement,
             IsIndexElement sIndexElement);
