@@ -33,9 +33,4 @@
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Classes\Calculations\Sets\" />
-    <Folder Include="Interfaces\Calculations\Sets\" />
-  </ItemGroup>
 </Project>
