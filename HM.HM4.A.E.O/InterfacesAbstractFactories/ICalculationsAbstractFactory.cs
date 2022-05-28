@@ -31,6 +31,8 @@
 
         IExpectedValueΦResultElementCalculationFactory CreateExpectedValueΦResultElementCalculationFactory();
 
+        IS1CalculationFactory CreateS1CalculationFactory();
+
         IScenarioNumberPatientsCalculationFactory CreateScenarioNumberPatientsCalculationFactory();
 
         IScenarioNumberPatientsResultElementCalculationFactory CreateScenarioNumberPatientsResultElementCalculationFactory();

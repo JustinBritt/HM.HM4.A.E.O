@@ -154,6 +154,24 @@
             return factory;
         }
 
+        public IS1CalculationFactory CreateS1CalculationFactory()
+        {
+            IS1CalculationFactory factory = null;
+
+            try
+            {
+                factory = new S1CalculationFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IScenarioNumberPatientsCalculationFactory CreateScenarioNumberPatientsCalculationFactory()
         {
             IScenarioNumberPatientsCalculationFactory factory = null;
