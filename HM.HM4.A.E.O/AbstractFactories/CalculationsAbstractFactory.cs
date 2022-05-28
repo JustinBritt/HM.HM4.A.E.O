@@ -12,6 +12,7 @@
     using HM.HM4.A.E.O.Factories.Calculations.ScenarioUnderutilizations;
     using HM.HM4.A.E.O.Factories.Calculations.ScenarioUnutilizedTimes;
     using HM.HM4.A.E.O.Factories.Calculations.ScenarioUtilizedTimes;
+    using HM.HM4.A.E.O.Factories.Calculations.Sets;
     using HM.HM4.A.E.O.Factories.Calculations.SurgeonDayScenarioCumulativeNumberPatients;
     using HM.HM4.A.E.O.Factories.Calculations.SurgeonNumberAssignedOperatingRooms;
     using HM.HM4.A.E.O.Factories.Calculations.SurgeonNumberAssignedWeekdays;
@@ -28,6 +29,7 @@
     using HM.HM4.A.E.O.InterfacesFactories.Calculations.ScenarioUnderutilizations;
     using HM.HM4.A.E.O.InterfacesFactories.Calculations.ScenarioUnutilizedTimes;
     using HM.HM4.A.E.O.InterfacesFactories.Calculations.ScenarioUtilizedTimes;
+    using HM.HM4.A.E.O.InterfacesFactories.Calculations.Sets;
     using HM.HM4.A.E.O.InterfacesFactories.Calculations.SurgeonDayScenarioCumulativeNumberPatients;
     using HM.HM4.A.E.O.InterfacesFactories.Calculations.SurgeonNumberAssignedOperatingRooms;
     using HM.HM4.A.E.O.InterfacesFactories.Calculations.SurgeonNumberAssignedWeekdays;
