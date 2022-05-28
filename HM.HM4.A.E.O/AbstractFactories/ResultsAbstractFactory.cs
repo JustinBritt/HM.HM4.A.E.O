@@ -238,6 +238,24 @@
             return factory;
         }
 
+        public IS2Factory CreateS2Factory()
+        {
+            IS2Factory factory = null;
+
+            try
+            {
+                factory = new S2Factory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IScenarioNumberPatientsFactory CreateScenarioNumberPatientsFactory()
         {
             IScenarioNumberPatientsFactory factory = null;

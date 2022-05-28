@@ -45,6 +45,8 @@
 
         IS1Factory CreateS1Factory();
 
+        IS2Factory CreateS2Factory();
+
         IScenarioNumberPatientsFactory CreateScenarioNumberPatientsFactory();
 
         IScenarioTotalTimesFactory CreateScenarioTotalTimesFactory();
