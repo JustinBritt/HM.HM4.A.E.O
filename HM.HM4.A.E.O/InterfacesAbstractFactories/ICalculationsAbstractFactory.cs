@@ -33,6 +33,8 @@
 
         IS1CalculationFactory CreateS1CalculationFactory();
 
+        IS2CalculationFactory CreateS2CalculationFactory();
+
         IScenarioNumberPatientsCalculationFactory CreateScenarioNumberPatientsCalculationFactory();
 
         IScenarioNumberPatientsResultElementCalculationFactory CreateScenarioNumberPatientsResultElementCalculationFactory();
