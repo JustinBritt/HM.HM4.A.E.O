@@ -6,6 +6,8 @@
     {
         IdtFactory CreatedtFactory();
 
+        IrddFactory CreaterddFactory();
+
         IrdFactory CreaterdFactory();
 
         IrtFactory CreatertFactory();
