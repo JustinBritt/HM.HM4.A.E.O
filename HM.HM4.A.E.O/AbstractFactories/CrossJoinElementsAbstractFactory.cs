@@ -52,6 +52,24 @@
             return factory;
         }
 
+        public IrddCrossJoinElementFactory CreaterddCrossJoinElementFactory()
+        {
+            IrddCrossJoinElementFactory factory = null;
+
+            try
+            {
+                factory = new rddCrossJoinElementFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IrtCrossJoinElementFactory CreatertCrossJoinElementFactory()
         {
             IrtCrossJoinElementFactory factory = null;

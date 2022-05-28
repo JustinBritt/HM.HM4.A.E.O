@@ -8,6 +8,8 @@
 
         IrdCrossJoinElementFactory CreaterdCrossJoinElementFactory();
 
+        IrddCrossJoinElementFactory CreaterddCrossJoinElementFactory();
+
         IrtCrossJoinElementFactory CreatertCrossJoinElementFactory();
 
         IslCrossJoinElementFactory CreateslCrossJoinElementFactory();
