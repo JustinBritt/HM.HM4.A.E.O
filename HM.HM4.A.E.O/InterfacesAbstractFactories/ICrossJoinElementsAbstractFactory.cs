@@ -6,6 +6,8 @@
     {
         IdtCrossJoinElementFactory CreatedtCrossJoinElementFactory();
 
+        IrdCrossJoinElementFactory CreaterdCrossJoinElementFactory();
+
         IrtCrossJoinElementFactory CreatertCrossJoinElementFactory();
 
         IslCrossJoinElementFactory CreateslCrossJoinElementFactory();
