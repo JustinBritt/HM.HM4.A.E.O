@@ -211,7 +211,7 @@
                     this.s.GetElementAt(x.Item1),
                     this.l.GetElementAt(x.Item2),
                     this.Λ.GetElementAt(x.Item3),
-                    (FhirDecimal)x.Item4))
+                    x.Item4))
                 .ToImmutableList());
 
             // W
@@ -304,7 +304,7 @@
                 .Select(x => parameterElementsAbstractFactory.CreateμParameterElementFactory().Create(
                     this.s.GetElementAt(x.Item1),
                     this.Λ.GetElementAt(x.Item2),
-                    (FhirDecimal)x.Item3))
+                    x.Item3))
                 .ToImmutableList());
 
             // Ρ(Λ)
@@ -312,7 +312,7 @@
                 this.Context.ScenarioProbabilities
                 .Select(x => parameterElementsAbstractFactory.CreateΡParameterElementFactory().Create(
                     this.Λ.GetElementAt(x.Key),
-                    (FhirDecimal)x.Value))
+                    x.Value))
                 .ToImmutableList());
 
             // σ(s, Λ)
@@ -321,7 +321,7 @@
                .Select(x => parameterElementsAbstractFactory.CreateσParameterElementFactory().Create(
                    this.s.GetElementAt(x.Item1),
                    this.Λ.GetElementAt(x.Item2),
-                   (FhirDecimal)x.Item3))
+                   x.Item3))
                .ToImmutableList());
 
             // ΦHat(s, l, Λ)
@@ -331,7 +331,7 @@
                     this.s.GetElementAt(x.Item1),
                     this.l.GetElementAt(x.Item2),
                     this.Λ.GetElementAt(x.Item3),
-                    (FhirDecimal)x.Item4))
+                    x.Item4))
                 .ToImmutableList());
 
             // Ω
