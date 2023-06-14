@@ -35,6 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Factories\Comparers\" />
+    <Folder Include="InterfacesFactories\Comparers\" />
     <Folder Include="InterfacesVisitors\Contexts\" />
     <Folder Include="Visitors\Contexts\" />
   </ItemGroup>
