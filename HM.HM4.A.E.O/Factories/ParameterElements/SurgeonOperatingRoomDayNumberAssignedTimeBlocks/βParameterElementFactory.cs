@@ -23,7 +23,7 @@
             IsIndexElement sIndexElement,
             IrIndexElement rIndexElement,
             IdIndexElement dIndexElement,
-            PositiveInt value)
+            INullableValue<int> value)
         {
             IβParameterElement parameterElement = null;
 

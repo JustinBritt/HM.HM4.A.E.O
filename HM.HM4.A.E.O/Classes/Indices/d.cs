@@ -22,7 +22,7 @@
         public ImmutableList<IdIndexElement> Value { get; }
 
         public IdIndexElement GetElementAt(
-            PositiveInt value)
+            INullableValue<int> value)
         {
             return this.Value
                 .Where(x => x.Value == value)

@@ -15,7 +15,7 @@
             IsIndexElement sIndexElement,
             IrIndexElement rIndexElement,
             IdIndexElement dIndexElement,
-            PositiveInt value)
+            INullableValue<int> value)
         {
             this.sIndexElement = sIndexElement;
 
@@ -32,6 +32,6 @@
 
         public IdIndexElement dIndexElement { get; }
 
-        public PositiveInt Value { get; }
+        public INullableValue<int> Value { get; }
     }
 }

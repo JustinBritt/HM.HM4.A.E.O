@@ -12,6 +12,6 @@
 
         IdIndexElement dIndexElement { get; }
 
-        PositiveInt Value { get; }
+        INullableValue<int> Value { get; }
     }
 }
