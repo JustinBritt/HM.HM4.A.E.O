@@ -15,7 +15,7 @@
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public HM4InputContext(
-            ImmutableList<INullableValue<int>> weekdays,
+            ImmutableSortedSet<INullableValue<int>> weekdays,
             ImmutableList<Tuple<Organization, ImmutableList<Organization>>> surgicalSpecialties,
             ImmutableList<INullableValue<int>> lengthOfStayDays,
             Bundle operatingRooms,
@@ -80,7 +80,7 @@
             this.MaximumNumberRecoveryWardBeds = maximumNumberRecoveryWardBeds;
         }
 
-        public ImmutableList<INullableValue<int>> Weekdays { get; }
+        public ImmutableSortedSet<INullableValue<int>> Weekdays { get; }
 
         public ImmutableList<Tuple<Organization, ImmutableList<Organization>>> SurgicalSpecialties { get; }
 

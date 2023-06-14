@@ -11,7 +11,7 @@
     public interface IHM4InputContextFactory
     {
         IHM4InputContext Create(
-            ImmutableList<INullableValue<int>> weekdays,
+            ImmutableSortedSet<INullableValue<int>> weekdays,
             ImmutableList<Tuple<Organization, ImmutableList<Organization>>> surgicalSpecialties,
             ImmutableList<INullableValue<int>> lengthOfStayDays,
             Bundle operatingRooms,
