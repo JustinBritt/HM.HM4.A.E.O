@@ -16,6 +16,24 @@
         {
         }
 
+        public ILocationComparerFactory CreateLocationComparerFactory()
+        {
+            ILocationComparerFactory factory = null;
+
+            try
+            {
+                factory = new LocationComparerFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IOrganizationComparerFactory CreateOrganizationComparerFactory()
         {
             IOrganizationComparerFactory factory = null;
