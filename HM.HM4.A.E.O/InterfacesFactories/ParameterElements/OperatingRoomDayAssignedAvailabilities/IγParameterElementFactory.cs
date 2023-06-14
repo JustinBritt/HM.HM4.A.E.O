@@ -10,6 +10,6 @@
         IγParameterElement Create(
             IrIndexElement rIndexElement,
             ItIndexElement tIndexElement,
-            FhirBoolean value);
+            INullableValue<bool> value);
     }
 }

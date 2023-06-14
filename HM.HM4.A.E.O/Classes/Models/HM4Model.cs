@@ -224,7 +224,7 @@
                 .Select(x => parameterElementsAbstractFactory.CreateyParameterElementFactory().Create(
                     this.s.GetElementAt(x.Item1),
                     this.r.GetElementAt(x.Item2),
-                    (FhirBoolean)x.Item3))
+                    x.Item3))
                 .ToImmutableList());
 
             // β(s, r, d)
@@ -243,7 +243,7 @@
                 .Select(x => parameterElementsAbstractFactory.CreateγParameterElementFactory().Create(
                     this.r.GetElementAt(x.Item1),
                     this.t.GetElementAt(x.Item2),
-                    (FhirBoolean)x.Item3))
+                    x.Item3))
                 .ToImmutableList());
 
             // Δ(j)
