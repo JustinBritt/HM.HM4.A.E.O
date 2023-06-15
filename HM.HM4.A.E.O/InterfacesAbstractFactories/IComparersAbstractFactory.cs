@@ -4,6 +4,8 @@
 
     public interface IComparersAbstractFactory
     {
+        IFhirDateTimeComparerFactory CreateFhirDateTimeComparerFactory();
+
         ILocationComparerFactory CreateLocationComparerFactory();
 
         INullableValueintComparerFactory CreateNullableValueintComparerFactory();
