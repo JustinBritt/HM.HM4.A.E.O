@@ -4,6 +4,9 @@
 
     public interface IjIndexElement
     {
+        /// <summary>
+        /// Gets the surgical specialty.
+        /// </summary>
         Organization Value { get; }
     }
 }
