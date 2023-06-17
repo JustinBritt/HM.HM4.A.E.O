@@ -12,7 +12,7 @@
 
         ImmutableList<Tuple<Organization, ImmutableList<Organization>>> SurgicalSpecialties { get; }
 
-        ImmutableList<INullableValue<int>> LengthOfStayDays { get; }
+        ImmutableSortedSet<INullableValue<int>> LengthOfStayDays { get; }
 
         Bundle OperatingRooms { get; }
 

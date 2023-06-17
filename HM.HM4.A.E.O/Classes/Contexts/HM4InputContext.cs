@@ -17,7 +17,7 @@
         public HM4InputContext(
             ImmutableSortedSet<INullableValue<int>> weekdays,
             ImmutableList<Tuple<Organization, ImmutableList<Organization>>> surgicalSpecialties,
-            ImmutableList<INullableValue<int>> lengthOfStayDays,
+            ImmutableSortedSet<INullableValue<int>> lengthOfStayDays,
             Bundle operatingRooms,
             Bundle surgeons,
             ImmutableList<KeyValuePair<INullableValue<int>, FhirDateTime>> planningHorizon,
@@ -84,7 +84,7 @@
 
         public ImmutableList<Tuple<Organization, ImmutableList<Organization>>> SurgicalSpecialties { get; }
 
-        public ImmutableList<INullableValue<int>> LengthOfStayDays { get; }
+        public ImmutableSortedSet<INullableValue<int>> LengthOfStayDays { get; }
 
         public Bundle OperatingRooms { get; }
 
