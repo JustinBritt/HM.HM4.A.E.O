@@ -71,7 +71,7 @@
             this.j = indicesAbstractFactory.CreatejFactory().Create(
                 comparersAbstractFactory.CreateOrganizationComparerFactory().Create(),
                 this.Context.SurgicalSpecialties
-                .Select(x => x.Item1)
+                .Select(x => x.Key)
                 .Select(x => indexElementsAbstractFactory.CreatejIndexElementFactory().Create(x))
                 .ToImmutableList());
 
@@ -255,8 +255,8 @@
             this.Δ = parametersAbstractFactory.CreateΔFactory().Create(
                 this.Context.SurgicalSpecialties
                 .Select(x => parameterElementsAbstractFactory.CreateΔParameterElementFactory().Create(
-                    this.j.GetElementAt(x.Item1),
-                    x.Item2.Select(i => this.s.GetElementAt(i)).ToImmutableList()))
+                    this.j.GetElementAt(x.Key),
+                    x.Value.Select(i => this.s.GetElementAt(i)).ToImmutableList()))
                 .ToImmutableList());
 
             // δ1(s, r, d)

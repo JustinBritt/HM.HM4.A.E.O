@@ -14,7 +14,7 @@
     {
         IHM4InputContext Create(
             ImmutableSortedSet<INullableValue<int>> weekdays,
-            ImmutableList<Tuple<Organization, ImmutableList<Organization>>> surgicalSpecialties,
+            RedBlackTree<Organization, ImmutableSortedSet<Organization>> surgicalSpecialties,
             ImmutableSortedSet<INullableValue<int>> lengthOfStayDays,
             Bundle operatingRooms,
             Bundle surgeons,
