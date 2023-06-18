@@ -8,6 +8,8 @@
 
     using Hl7.Fhir.Model;
 
+    using NGenerics.Patterns.Visitor;
+
     using OPTANO.Modeling.Optimization;
     using OPTANO.Modeling.Optimization.Enums;
 
@@ -31,6 +33,7 @@
     using HM.HM4.A.E.O.Interfaces.Parameters.TimeBlockLength;
     using HM.HM4.A.E.O.Interfaces.Parameters.TimeBlocks;
     using HM.HM4.A.E.O.Interfaces.Variables;
+    using HM.HM4.A.E.O.InterfacesVisitors.Contexts;
 
     internal sealed class HM4Model : IHM4Model
     {
@@ -310,12 +313,15 @@
                 .ToImmutableList());
 
             // Ρ(Λ)
+            IScenarioProbabilitiesVisitor<INullableValue<int>, INullableValue<decimal>> scenarioProbabilitiesVisitor = new HM.HM4.A.E.O.Visitors.Contexts.ScenarioProbabilitiesVisitor<INullableValue<int>, INullableValue<decimal>>(
+                parameterElementsAbstractFactory.CreateΡParameterElementFactory(),
+                this.Λ);
+
+            this.Context.ScenarioProbabilities.AcceptVisitor(
+                scenarioProbabilitiesVisitor);
+
             this.Ρ = parametersAbstractFactory.CreateΡFactory().Create(
-                this.Context.ScenarioProbabilities
-                .Select(x => parameterElementsAbstractFactory.CreateΡParameterElementFactory().Create(
-                    this.Λ.GetElementAt(x.Key),
-                    x.Value))
-                .ToImmutableList());
+                scenarioProbabilitiesVisitor.RedBlackTree);
 
             // σ(s, Λ)
             this.σ = parametersAbstractFactory.CreateσFactory().Create(
