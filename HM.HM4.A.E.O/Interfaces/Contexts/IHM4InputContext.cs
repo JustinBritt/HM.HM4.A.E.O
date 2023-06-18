@@ -20,7 +20,7 @@
 
         ImmutableList<KeyValuePair<INullableValue<int>, FhirDateTime>> PlanningHorizon { get; }
 
-        ImmutableList<INullableValue<int>> Scenarios { get; }
+        ImmutableSortedSet<INullableValue<int>> Scenarios { get; }
 
         Duration TimeBlockLength { get; }
 

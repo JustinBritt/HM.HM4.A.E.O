@@ -17,7 +17,7 @@
             Bundle operatingRooms,
             Bundle surgeons,
             ImmutableList<KeyValuePair<INullableValue<int>, FhirDateTime>> planningHorizon,
-            ImmutableList<INullableValue<int>> scenarios,
+            ImmutableSortedSet<INullableValue<int>> scenarios,
             Duration timeBlockLength,
             ImmutableList<Tuple<Organization, INullableValue<int>, Duration>> surgeonScenarioWeightedAverageSurgicalDurations,
             ImmutableList<KeyValuePair<Organization, INullableValue<int>>> surgeonLengthOfStayMaximums,
