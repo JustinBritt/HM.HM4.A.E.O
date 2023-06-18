@@ -1,7 +1,6 @@
 ﻿namespace HM.HM4.A.E.O.Interfaces.Contexts
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Immutable;
 
     using Hl7.Fhir.Model;
@@ -28,7 +27,7 @@
 
         ImmutableList<Tuple<Organization, INullableValue<int>, Duration>> SurgeonScenarioWeightedAverageSurgicalDurations { get; }
 
-        ImmutableList<KeyValuePair<Organization, INullableValue<int>>> SurgeonLengthOfStayMaximums { get; }
+        RedBlackTree<Organization, INullableValue<int>> SurgeonLengthOfStayMaximums { get; }
 
         ImmutableList<Tuple<Organization, INullableValue<int>, INullableValue<int>>> SurgeonScenarioMaximumNumberPatients { get; }
 

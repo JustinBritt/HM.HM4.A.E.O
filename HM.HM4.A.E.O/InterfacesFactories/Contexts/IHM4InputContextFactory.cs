@@ -22,7 +22,7 @@
             ImmutableSortedSet<INullableValue<int>> scenarios,
             Duration timeBlockLength,
             ImmutableList<Tuple<Organization, INullableValue<int>, Duration>> surgeonScenarioWeightedAverageSurgicalDurations,
-            ImmutableList<KeyValuePair<Organization, INullableValue<int>>> surgeonLengthOfStayMaximums,
+            RedBlackTree<Organization, INullableValue<int>> surgeonLengthOfStayMaximums,
             ImmutableList<Tuple<Organization, INullableValue<int>, INullableValue<int>>> surgeonScenarioMaximumNumberPatients,
             ImmutableList<Tuple<Organization, INullableValue<int>, INullableValue<int>, INullableValue<decimal>>> surgeonDayScenarioLengthOfStayProbabilities,
             INullableValue<int> numberDaysPerWeek,

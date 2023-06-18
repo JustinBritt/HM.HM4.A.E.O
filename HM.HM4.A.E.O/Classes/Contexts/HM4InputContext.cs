@@ -1,7 +1,6 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Contexts
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Immutable;
 
     using log4net;
@@ -26,7 +25,7 @@
             ImmutableSortedSet<INullableValue<int>> scenarios,
             Duration timeBlockLength,
             ImmutableList<Tuple<Organization, INullableValue<int>, Duration>> surgeonScenarioWeightedAverageSurgicalDurations,
-            ImmutableList<KeyValuePair<Organization, INullableValue<int>>> surgeonLengthOfStayMaximums,
+            RedBlackTree<Organization, INullableValue<int>> surgeonLengthOfStayMaximums,
             ImmutableList<Tuple<Organization, INullableValue<int>, INullableValue<int>>> surgeonScenarioMaximumNumberPatients,
             ImmutableList<Tuple<Organization, INullableValue<int>, INullableValue<int>, INullableValue<decimal>>> surgeonDayScenarioLengthOfStayProbabilities,
             INullableValue<int> numberDaysPerWeek,
@@ -100,7 +99,7 @@
 
         public ImmutableList<Tuple<Organization, INullableValue<int>, Duration>> SurgeonScenarioWeightedAverageSurgicalDurations { get; }
 
-        public ImmutableList<KeyValuePair<Organization, INullableValue<int>>> SurgeonLengthOfStayMaximums { get; }
+        public RedBlackTree<Organization, INullableValue<int>> SurgeonLengthOfStayMaximums { get; }
 
         public ImmutableList<Tuple<Organization, INullableValue<int>, INullableValue<int>>> SurgeonScenarioMaximumNumberPatients { get; }
 
