@@ -20,6 +20,7 @@
 
         public IHM4Model Create(
             ICalculationsAbstractFactory calculationsAbstractFactory,
+            IComparersAbstractFactory comparersAbstractFactory,
             IConstraintElementsAbstractFactory constraintElementsAbstractFactory,
             IConstraintsAbstractFactory constraintsAbstractFactory,
             ICrossJoinElementsAbstractFactory crossJoinElementsAbstractFactory,
@@ -39,6 +40,7 @@
             {
                 model = new HM4Model(
                     calculationsAbstractFactory,
+                    comparersAbstractFactory,
                     constraintElementsAbstractFactory,
                     constraintsAbstractFactory,
                     crossJoinElementsAbstractFactory,

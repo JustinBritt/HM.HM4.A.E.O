@@ -25,6 +25,7 @@
 
         public Task<IHM4OutputContext> Solve(
             ICalculationsAbstractFactory calculationsAbstractFactory,
+            IComparersAbstractFactory comparersAbstractFactory,
             IConstraintElementsAbstractFactory constraintElementsAbstractFactory,
             IConstraintsAbstractFactory constraintsAbstractFactory,
             IContextsAbstractFactory contextsAbstractFactory,
@@ -52,6 +53,7 @@
                 {
                     IHM4Model model = modelsAbstractFactory.CreateHM4ModelFactory().Create(
                         calculationsAbstractFactory,
+                        comparersAbstractFactory,
                         constraintElementsAbstractFactory,
                         constraintsAbstractFactory,
                         crossJoinElementsAbstractFactory,
