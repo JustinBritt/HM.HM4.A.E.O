@@ -252,12 +252,17 @@
                 .ToImmutableList());
 
             // Δ(j)
+            ISurgicalSpecialtiesVisitor<Organization, ImmutableSortedSet<Organization>> surgicalSpecialtiesVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgicalSpecialtiesVisitor<Organization, ImmutableSortedSet<Organization>>(
+                parameterElementsAbstractFactory.CreateΔParameterElementFactory(),
+                this.j,
+                this.s);
+
+            this.Context.SurgicalSpecialties.AcceptVisitor(
+                surgicalSpecialtiesVisitor);
+
             this.Δ = parametersAbstractFactory.CreateΔFactory().Create(
-                this.Context.SurgicalSpecialties
-                .Select(x => parameterElementsAbstractFactory.CreateΔParameterElementFactory().Create(
-                    this.j.GetElementAt(x.Key),
-                    x.Value.Select(i => this.s.GetElementAt(i)).ToImmutableList()))
-                .ToImmutableList());
+                surgicalSpecialtiesVisitor.RedBlackTree,
+                surgicalSpecialtiesVisitor.Value.ToImmutableList());
 
             // δ1(s, r, d)
             this.δ1 = calculationsAbstractFactory.Createδ1CalculationFactory().Create().Calculate(
