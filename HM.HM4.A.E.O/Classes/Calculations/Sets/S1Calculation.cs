@@ -35,13 +35,13 @@
                     i => Tuple.Create(
                         i,
                         x.Value
-                        .Where(j => j.rIndexElement == i && j.Value)
+                        .Where(j => j.rIndexElement == i.Value && j.Value)
                         .Select(j => j.sIndexElement)
                         .Select(j => Δ.GetSurgicalSpecialtyOfSurgeon(j).Value)
                         .Distinct()
                         .Count()))
                 .Where(i => i.Item2 > 1)
-                .Select(i => S1ResultElementFactory.Create(i.Item1))
+                .Select(i => S1ResultElementFactory.Create(i.Item1.Value))
                 .ToImmutableList());
         }
     }

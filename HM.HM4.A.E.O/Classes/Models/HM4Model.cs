@@ -84,6 +84,7 @@
 
             // r
             this.r = indicesAbstractFactory.CreaterFactory().Create(
+                comparersAbstractFactory.CreateLocationComparerFactory().Create(),
                 this.Context.OperatingRooms
                 .Entry
                 .Where(x => x.Resource is Location)
@@ -122,14 +123,14 @@
 
             // rdd
             this.rdd = crossJoinsAbstractFactory.CreaterddFactory().Create(
-                this.r.Value
+                this.r.Value.Values
                 .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreaterdCrossJoinElementFactory().Create(a, b))
                 .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreaterddCrossJoinElementFactory().Create(a.rIndexElement, a.dIndexElement, b))
                 .ToImmutableList());
 
             // rt
             this.rt = crossJoinsAbstractFactory.CreatertFactory().Create(
-                this.r.Value
+                this.r.Value.Values
                 .SelectMany(b => this.t.Value, (a, b) => crossJoinElementsAbstractFactory.CreatertCrossJoinElementFactory().Create(a, b))
                 .ToImmutableList());
 
@@ -143,20 +144,20 @@
             // sr
             this.sr = crossJoinsAbstractFactory.CreatesrFactory().Create(
                 this.s.Value
-                .SelectMany(b => this.r.Value, (a, b) => crossJoinElementsAbstractFactory.CreatesrCrossJoinElementFactory().Create(a, b))
+                .SelectMany(b => this.r.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreatesrCrossJoinElementFactory().Create(a, b))
                 .ToImmutableList());
 
             // srd
             this.srd = crossJoinsAbstractFactory.CreatesrdFactory().Create(
                 this.s.Value
-                .SelectMany(b => this.r.Value, (a, b) => crossJoinElementsAbstractFactory.CreatesrCrossJoinElementFactory().Create(a, b))
+                .SelectMany(b => this.r.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreatesrCrossJoinElementFactory().Create(a, b))
                 .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreatesrdCrossJoinElementFactory().Create(a.sIndexElement, a.rIndexElement, b))
                 .ToImmutableList());
 
             // srt
             this.srt = crossJoinsAbstractFactory.CreatesrtFactory().Create(
                 this.s.Value
-                .SelectMany(b => this.r.Value, (a, b) => crossJoinElementsAbstractFactory.CreatesrCrossJoinElementFactory().Create(a, b))
+                .SelectMany(b => this.r.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreatesrCrossJoinElementFactory().Create(a, b))
                 .SelectMany(b => this.t.Value, (a, b) => crossJoinElementsAbstractFactory.CreatesrtCrossJoinElementFactory().Create(a.sIndexElement, a.rIndexElement, b))
                 .ToImmutableList());
 
@@ -387,7 +388,7 @@
                 dependenciesAbstractFactory.CreateVariableCollectionFactory().CreateBinary(
                     model: this.Model, 
                     indexSet1: this.s.Value, 
-                    indexSet2: this.r.Value, 
+                    indexSet2: this.r.Value.Values, 
                     indexSet3: this.t.Value)); 
 
             // z(s, t)
