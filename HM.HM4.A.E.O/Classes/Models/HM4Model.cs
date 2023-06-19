@@ -111,6 +111,7 @@
 
             // Λ
             this.Λ = indicesAbstractFactory.CreateΛFactory().Create(
+                comparersAbstractFactory.CreateNullableValueintComparerFactory().Create(),
                 this.Context.Scenarios
                 .Select(x => indexElementsAbstractFactory.CreateΛIndexElementFactory().Create(x))
                 .ToImmutableList());
@@ -140,7 +141,7 @@
             this.slΛ = crossJoinsAbstractFactory.CreateslΛFactory().Create(
                this.s.Value.Values
                .SelectMany(b => this.l.Value, (a, b) => crossJoinElementsAbstractFactory.CreateslCrossJoinElementFactory().Create(a, b))
-               .SelectMany(b => this.Λ.Value, (a, b) => crossJoinElementsAbstractFactory.CreateslΛCrossJoinElementFactory().Create(a.sIndexElement, a.lIndexElement, b))
+               .SelectMany(b => this.Λ.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreateslΛCrossJoinElementFactory().Create(a.sIndexElement, a.lIndexElement, b))
                .ToImmutableList());
 
             // sr
@@ -172,13 +173,13 @@
             // sΛ
             this.sΛ = crossJoinsAbstractFactory.CreatesΛFactory().Create(
                 this.s.Value.Values
-                .SelectMany(b => this.Λ.Value, (a, b) => crossJoinElementsAbstractFactory.CreatesΛCrossJoinElementFactory().Create(a, b))
+                .SelectMany(b => this.Λ.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreatesΛCrossJoinElementFactory().Create(a, b))
                 .ToImmutableList());
 
             // tΛ
             this.tΛ = crossJoinsAbstractFactory.CreatetΛFactory().Create(
                 this.t.Value
-                .SelectMany(b => this.Λ.Value, (a, b) => crossJoinElementsAbstractFactory.CreatetΛCrossJoinElementFactory().Create(a, b))
+                .SelectMany(b => this.Λ.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreatetΛCrossJoinElementFactory().Create(a, b))
                 .ToImmutableList());
 
             // Parameters
@@ -383,7 +384,7 @@
                 dependenciesAbstractFactory.CreateVariableCollectionFactory().Create(
                     model: this.Model, 
                     indexSet1: this.t.Value, 
-                    indexSet2: this.Λ.Value, 
+                    indexSet2: this.Λ.Value.Values, 
                     lowerBoundGenerator: (a, b) => 0,
                     upperBoundGenerator: (a, b) => double.MaxValue, 
                     variableTypeGenerator: (a, b) => VariableType.Continuous)); 

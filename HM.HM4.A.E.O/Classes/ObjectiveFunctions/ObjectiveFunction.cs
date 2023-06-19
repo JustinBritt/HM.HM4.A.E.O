@@ -25,7 +25,7 @@
             IIHat IHat)
         {
             Expression expression = Expression.Sum(
-                Λ.Value
+                Λ.Value.Values
                 .Select(
                     x => (double)Ρ.GetElementAtAsdecimal(
                         x)
