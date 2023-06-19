@@ -1,11 +1,13 @@
 ﻿namespace HM.HM4.A.E.O.Factories.Parameters.SurgeonDayScenarioCumulativeNumberPatients
 {
     using System;
-    using System.Collections.Immutable;
 
     using log4net;
 
+    using NGenerics.DataStructures.Trees;
+
     using HM.HM4.A.E.O.Classes.Parameters.SurgeonDayScenarioCumulativeNumberPatients;
+    using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.ParameterElements.SurgeonDayScenarioCumulativeNumberPatients;
     using HM.HM4.A.E.O.Interfaces.Parameters.SurgeonDayScenarioCumulativeNumberPatients;
     using HM.HM4.A.E.O.InterfacesFactories.Parameters.SurgeonDayScenarioCumulativeNumberPatients;
@@ -19,7 +21,7 @@
         }
 
         public IΦHat Create(
-            ImmutableList<IΦHatParameterElement> value)
+            RedBlackTree<IsIndexElement, RedBlackTree<IlIndexElement, RedBlackTree<IΛIndexElement, IΦHatParameterElement>>> value)
         {
             IΦHat parameter = null;
 

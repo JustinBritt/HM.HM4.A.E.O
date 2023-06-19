@@ -354,14 +354,17 @@
                 surgeonScenarioMaximumNumberPatientStandardDeviationsOuterVisitor.RedBlackTree);
 
             // ΦHat(s, l, Λ)
+            ISurgeonDayScenarioCumulativeNumberPatientsOuterVisitor<Organization, RedBlackTree<INullableValue<int>, RedBlackTree<INullableValue<int>, INullableValue<decimal>>>> surgeonDayScenarioCumulativeNumberPatientsOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgeonDayScenarioCumulativeNumberPatientsOuterVisitor<Organization, RedBlackTree<INullableValue<int>, RedBlackTree<INullableValue<int>, INullableValue<decimal>>>>(
+                parameterElementsAbstractFactory.CreateΦHatParameterElementFactory(),
+                this.l,
+                this.s,
+                this.Λ);
+
+            this.Context.SurgeonDayScenarioCumulativeNumberPatients.AcceptVisitor(
+                surgeonDayScenarioCumulativeNumberPatientsOuterVisitor);
+
             this.ΦHat = parametersAbstractFactory.CreateΦHatFactory().Create(
-                this.Context.SurgeonDayScenarioCumulativeNumberPatients
-                .Select(x => parameterElementsAbstractFactory.CreateΦHatParameterElementFactory().Create(
-                    this.s.GetElementAt(x.Item1),
-                    this.l.GetElementAt(x.Item2),
-                    this.Λ.GetElementAt(x.Item3),
-                    x.Item4))
-                .ToImmutableList());
+                surgeonDayScenarioCumulativeNumberPatientsOuterVisitor.RedBlackTree);
 
             // Ω
             this.Ω = parametersAbstractFactory.CreateΩFactory().Create(
