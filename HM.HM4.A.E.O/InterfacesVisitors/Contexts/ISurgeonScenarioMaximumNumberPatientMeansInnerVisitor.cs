@@ -11,6 +11,8 @@
     using HM.HM4.A.E.O.Interfaces.ParameterElements.SurgeonScenarioMaximumNumberPatients;
 
     public interface ISurgeonScenarioMaximumNumberPatientMeansInnerVisitor<TKey, TValue> : IVisitor<KeyValuePair<TKey, TValue>>
+        where TKey : INullableValue<int>
+        where TValue : INullableValue<decimal>
     {
         RedBlackTree<IΛIndexElement, IμParameterElement> RedBlackTree { get; }
     }
