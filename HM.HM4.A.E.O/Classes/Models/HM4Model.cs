@@ -64,6 +64,7 @@
 
             // d
             this.d = indicesAbstractFactory.CreatedFactory().Create(
+                comparersAbstractFactory.CreateNullableValueintComparerFactory().Create(),
                 this.Context.Weekdays
                 .Select(x => indexElementsAbstractFactory.CreatedIndexElementFactory().Create(x))
                 .ToImmutableList());
@@ -117,15 +118,15 @@
 
             // dt
             this.dt = crossJoinsAbstractFactory.CreatedtFactory().Create(
-                this.d.Value
+                this.d.Value.Values
                 .SelectMany(b => this.t.Value, (a, b) => crossJoinElementsAbstractFactory.CreatedtCrossJoinElementFactory().Create(a, b))
                 .ToImmutableList());
 
             // rdd
             this.rdd = crossJoinsAbstractFactory.CreaterddFactory().Create(
                 this.r.Value.Values
-                .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreaterdCrossJoinElementFactory().Create(a, b))
-                .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreaterddCrossJoinElementFactory().Create(a.rIndexElement, a.dIndexElement, b))
+                .SelectMany(b => this.d.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreaterdCrossJoinElementFactory().Create(a, b))
+                .SelectMany(b => this.d.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreaterddCrossJoinElementFactory().Create(a.rIndexElement, a.dIndexElement, b))
                 .ToImmutableList());
 
             // rt
@@ -151,7 +152,7 @@
             this.srd = crossJoinsAbstractFactory.CreatesrdFactory().Create(
                 this.s.Value
                 .SelectMany(b => this.r.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreatesrCrossJoinElementFactory().Create(a, b))
-                .SelectMany(b => this.d.Value, (a, b) => crossJoinElementsAbstractFactory.CreatesrdCrossJoinElementFactory().Create(a.sIndexElement, a.rIndexElement, b))
+                .SelectMany(b => this.d.Value.Values, (a, b) => crossJoinElementsAbstractFactory.CreatesrdCrossJoinElementFactory().Create(a.sIndexElement, a.rIndexElement, b))
                 .ToImmutableList());
 
             // srt
