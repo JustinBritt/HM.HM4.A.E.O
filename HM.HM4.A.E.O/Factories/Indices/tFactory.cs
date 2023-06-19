@@ -1,15 +1,18 @@
 ﻿namespace HM.HM4.A.E.O.Factories.Indices
 {
     using System;
-    using System.Collections.Immutable;
 
     using log4net;
+
+    using Hl7.Fhir.Model;
+
+    using NGenerics.DataStructures.Trees;
 
     using HM.HM4.A.E.O.Classes.Indices;
     using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.Indices;
     using HM.HM4.A.E.O.InterfacesFactories.Indices;
-
+    
     internal sealed class tFactory : ItFactory
     {
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -19,7 +22,7 @@
         }
 
         public It Create(
-            ImmutableList<ItIndexElement> value)
+            RedBlackTree<FhirDateTime, ItIndexElement> value)
         {
             It index = null;
 

@@ -8,6 +8,8 @@
 
     using Hl7.Fhir.Model;
 
+    using NGenerics.DataStructures.Trees;
+
     using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.Indices;
 
@@ -16,12 +18,12 @@
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public t(
-            ImmutableList<ItIndexElement> value)
+            RedBlackTree<FhirDateTime, ItIndexElement> value)
         {
             this.Value = value;
         }
 
-        public ImmutableList<ItIndexElement> Value { get; }
+        public RedBlackTree<FhirDateTime, ItIndexElement> Value { get; }
 
         public ItIndexElement GetElementAt(
             int value)
@@ -30,7 +32,7 @@
                 value,
                 this.GetT());
 
-            return this.Value
+            return this.Value.Values
                 .Where(x => x.Key == key)
                 .SingleOrDefault();
         }
@@ -38,9 +40,7 @@
         public ItIndexElement GetElementAt(
             FhirDateTime value)
         {
-            return this.Value
-                .Where(x => x.Value == value)
-                .SingleOrDefault();
+            return this.Value[value];
         }
 
         public ImmutableList<ItIndexElement> GetNthElementsAt(
@@ -63,7 +63,7 @@
 
         public int GetT()
         {
-            return this.Value
+            return this.Value.Values
                 .Select(x => x.Key)
                 .Max();
         }

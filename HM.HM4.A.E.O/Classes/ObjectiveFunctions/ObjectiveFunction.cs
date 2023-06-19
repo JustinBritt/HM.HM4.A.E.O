@@ -31,7 +31,7 @@
                         x)
                     *
                     Expression.Maximum(
-                        t.Value
+                        t.Value.Values
                         .Select(y => (Expression)IHat.Value[y, x]))));
 
             Objective objective = objectiveFactory.Create(
