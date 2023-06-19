@@ -185,13 +185,16 @@
                 this.Context.TimeBlockLength);
 
             // h(s, Λ)
+            ISurgeonScenarioWeightedAverageSurgicalDurationsOuterVisitor<Organization, RedBlackTree<INullableValue<int>, Duration>> surgeonScenarioWeightedAverageSurgicalDurationsOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgeonScenarioWeightedAverageSurgicalDurationsOuterVisitor<Organization, RedBlackTree<INullableValue<int>, Duration>>(
+                parameterElementsAbstractFactory.CreatehParameterElementFactory(),
+                this.s,
+                this.Λ);
+
+            this.Context.SurgeonScenarioWeightedAverageSurgicalDurations.AcceptVisitor(
+                surgeonScenarioWeightedAverageSurgicalDurationsOuterVisitor);
+
             this.h = parametersAbstractFactory.CreatehFactory().Create(
-                this.Context.SurgeonScenarioWeightedAverageSurgicalDurations
-                .Select(x => parameterElementsAbstractFactory.CreatehParameterElementFactory().Create(
-                    this.s.GetElementAt(x.Item1),
-                    this.Λ.GetElementAt(x.Item2),
-                    x.Item3))
-                .ToImmutableList());
+                surgeonScenarioWeightedAverageSurgicalDurationsOuterVisitor.RedBlackTree);
 
             // L(s)
             this.L = parametersAbstractFactory.CreateLFactory().Create(
