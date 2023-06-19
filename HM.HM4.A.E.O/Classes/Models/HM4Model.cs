@@ -8,6 +8,7 @@
 
     using Hl7.Fhir.Model;
 
+    using NGenerics.DataStructures.Trees;
     using NGenerics.Patterns.Visitor;
 
     using OPTANO.Modeling.Optimization;
@@ -201,13 +202,16 @@
                 .ToImmutableList());
 
             // n(s, Λ)
+            ISurgeonScenarioMaximumNumberPatientsOuterVisitor<Organization, RedBlackTree<INullableValue<int>, INullableValue<int>>> surgeonScenarioMaximumNumberPatientsOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgeonScenarioMaximumNumberPatientsOuterVisitor<Organization, RedBlackTree<INullableValue<int>, INullableValue<int>>>(
+                parameterElementsAbstractFactory.CreatenParameterElementFactory(),
+                this.s,
+                this.Λ);
+
+            this.Context.SurgeonScenarioMaximumNumberPatients.AcceptVisitor(
+                surgeonScenarioMaximumNumberPatientsOuterVisitor);
+
             this.n = parametersAbstractFactory.CreatenFactory().Create(
-                this.Context.SurgeonScenarioMaximumNumberPatients
-                .Select(x => parameterElementsAbstractFactory.CreatenParameterElementFactory().Create(
-                    this.s.GetElementAt(x.Item1),
-                    this.Λ.GetElementAt(x.Item2),
-                    x.Item3))
-                .ToImmutableList());
+                surgeonScenarioMaximumNumberPatientsOuterVisitor.RedBlackTree);
 
             // p(s, l, Λ)
             this.p = parametersAbstractFactory.CreatepFactory().Create(
