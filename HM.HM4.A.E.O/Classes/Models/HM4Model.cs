@@ -319,13 +319,16 @@
                 this.γ);
 
             // μ(s, Λ)
+            ISurgeonScenarioMaximumNumberPatientMeansOuterVisitor<Organization, RedBlackTree<INullableValue<int>, INullableValue<decimal>>> surgeonScenarioMaximumNumberPatientMeansOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgeonScenarioMaximumNumberPatientMeansOuterVisitor<Organization, RedBlackTree<INullableValue<int>, INullableValue<decimal>>>(
+                parameterElementsAbstractFactory.CreateμParameterElementFactory(),
+                this.s,
+                this.Λ);
+
+            this.Context.SurgeonScenarioMaximumNumberPatientMeans.AcceptVisitor(
+                surgeonScenarioMaximumNumberPatientMeansOuterVisitor);
+
             this.μ = parametersAbstractFactory.CreateμFactory().Create(
-                this.Context.SurgeonScenarioMaximumNumberPatientMeans
-                .Select(x => parameterElementsAbstractFactory.CreateμParameterElementFactory().Create(
-                    this.s.GetElementAt(x.Item1),
-                    this.Λ.GetElementAt(x.Item2),
-                    x.Item3))
-                .ToImmutableList());
+                surgeonScenarioMaximumNumberPatientMeansOuterVisitor.RedBlackTree);
 
             // Ρ(Λ)
             IScenarioProbabilitiesVisitor<INullableValue<int>, INullableValue<decimal>> scenarioProbabilitiesVisitor = new HM.HM4.A.E.O.Visitors.Contexts.ScenarioProbabilitiesVisitor<INullableValue<int>, INullableValue<decimal>>(
