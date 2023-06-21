@@ -245,13 +245,16 @@
                 this.Context.NumberDaysPerWeek);
 
             // y(s, r)
+            ISurgeonOperatingRoomAssignmentsOuterVisitor<Organization, RedBlackTree<Location, INullableValue<bool>>> surgeonOperatingRoomAssignmentsOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgeonOperatingRoomAssignmentsOuterVisitor<Organization, RedBlackTree<Location, INullableValue<bool>>>(
+                parameterElementsAbstractFactory.CreateyParameterElementFactory(),
+                this.r,
+                this.s);
+
+            this.Context.SurgeonOperatingRoomAssignments.AcceptVisitor(
+                surgeonOperatingRoomAssignmentsOuterVisitor);
+
             this.y = parametersAbstractFactory.CreateyFactory().Create(
-                this.Context.SurgeonOperatingRoomAssignments
-                .Select(x => parameterElementsAbstractFactory.CreateyParameterElementFactory().Create(
-                    this.s.GetElementAt(x.Item1),
-                    this.r.GetElementAt(x.Item2),
-                    x.Item3))
-                .ToImmutableList());
+                surgeonOperatingRoomAssignmentsOuterVisitor.RedBlackTree);
 
             // β(s, r, d)
             this.β = parametersAbstractFactory.CreateβFactory().Create(
