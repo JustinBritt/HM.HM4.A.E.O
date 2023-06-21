@@ -267,13 +267,16 @@
                 .ToImmutableList());
 
             // γ(r, t)
+            IOperatingRoomDayAssignedAvailabilitiesOuterVisitor<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>> operatingRoomDayAssignedAvailabilitiesOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.OperatingRoomDayAssignedAvailabilitiesOuterVisitor<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>(
+                parameterElementsAbstractFactory.CreateγParameterElementFactory(),
+                this.r,
+                this.t);
+
+            this.Context.OperatingRoomDayAssignedAvailabilities.AcceptVisitor(
+                operatingRoomDayAssignedAvailabilitiesOuterVisitor);
+
             this.γ = parametersAbstractFactory.CreateγFactory().Create(
-                this.Context.OperatingRoomDayAssignedAvailabilities
-                .Select(x => parameterElementsAbstractFactory.CreateγParameterElementFactory().Create(
-                    this.r.GetElementAt(x.Item1),
-                    this.t.GetElementAt(x.Item2),
-                    x.Item3))
-                .ToImmutableList());
+                operatingRoomDayAssignedAvailabilitiesOuterVisitor.RedBlackTree);
 
             // Δ(j)
             ISurgicalSpecialtiesVisitor<Organization, ImmutableSortedSet<Organization>> surgicalSpecialtiesVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgicalSpecialtiesVisitor<Organization, ImmutableSortedSet<Organization>>(
