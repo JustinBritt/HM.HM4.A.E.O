@@ -21,29 +21,25 @@
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public x(
-            RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> redBlackTree,
-            ImmutableList<IxResultElement> value)
+            RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> redBlackTree)
         {
-            this.RedBlackTree = redBlackTree;
-
-            this.Value = value;
+            this.Value = redBlackTree;
         }
 
-        private RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> RedBlackTree { get; }
-
-        public ImmutableList<IxResultElement> Value { get; }
+        private RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> Value { get; }
 
         public int GetElementAtAsint(
             IsIndexElement sIndexElement,
             IrIndexElement rIndexElement,
             ItIndexElement tIndexElement)
         {
-            return this.Value
-                .Where(x => x.sIndexElement == sIndexElement && x.rIndexElement == rIndexElement && x.tIndexElement == tIndexElement)
-                .Select(x => x.Value ? 1 : 0)
-                .SingleOrDefault();
+            return this.Value[sIndexElement][rIndexElement][tIndexElement].Value ? 1 : 0;
         }
-        
+        public ImmutableList<IxResultElement> GetElementsAsImmutableList()
+        {
+            return this.Value.SelectMany(w => w.Value).SelectMany(w => w.Value).Select(w => w.Value).ToImmutableList();
+        }
+
         public RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> GetValueForOutputContext(
             INullableValueFactory nullableValueFactory)
         {
@@ -53,7 +49,7 @@
                 new HM.HM4.A.E.O.Classes.Comparers.LocationComparer(),
                 new HM.HM4.A.E.O.Classes.Comparers.OrganizationComparer());
 
-            this.RedBlackTree.AcceptVisitor(
+            this.Value.AcceptVisitor(
                 xOuterVisitor);
 
             return xOuterVisitor.RedBlackTree;

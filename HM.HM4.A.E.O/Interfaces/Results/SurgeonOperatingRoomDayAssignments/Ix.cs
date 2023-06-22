@@ -12,12 +12,12 @@
     
     public interface Ix
     {
-        ImmutableList<IxResultElement> Value { get; }
-
         int GetElementAtAsint(
             IsIndexElement sIndexElement,
             IrIndexElement rIndexElement,
             ItIndexElement tIndexElement);
+
+        ImmutableList<IxResultElement> GetElementsAsImmutableList();
 
         RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> GetValueForOutputContext(
             INullableValueFactory nullableValueFactory);

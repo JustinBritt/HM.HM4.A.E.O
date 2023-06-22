@@ -34,7 +34,7 @@
                 .Select(
                     i => Tuple.Create(
                         i,
-                        x.Value
+                        x.GetElementsAsImmutableList()
                         .Where(j => j.rIndexElement == i.Value && j.Value)
                         .Select(j => j.sIndexElement)
                         .Select(j => Δ.GetSurgicalSpecialtyOfSurgeon(j).Value)

@@ -59,7 +59,7 @@
                     i.Item4,
                     i.Item5,
                     // x(j, r, t)
-                    x.Value
+                    x.GetElementsAsImmutableList()
                     .Where(j => j.Value)
                     .Select(j => Tuple.Create(
                                 Δ.GetSurgicalSpecialtyOfSurgeon(j.sIndexElement),

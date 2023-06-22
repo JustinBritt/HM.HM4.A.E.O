@@ -25,7 +25,7 @@
         {
             return surgeonNumberAssignedOperatingRoomsResultElementFactory.Create(
                 sIndexElement,
-                x.Value.Where(i => i.sIndexElement == sIndexElement && i.Value).Select(i => i.rIndexElement).Distinct().Count());
+                x.GetElementsAsImmutableList().Where(i => i.sIndexElement == sIndexElement && i.Value).Select(i => i.rIndexElement).Distinct().Count());
         }
     }
 }

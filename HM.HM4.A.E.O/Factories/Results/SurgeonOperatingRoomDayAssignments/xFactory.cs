@@ -1,7 +1,6 @@
 ﻿namespace HM.HM4.A.E.O.Factories.Results.SurgeonOperatingRoomDayAssignments
 {
     using System;
-    using System.Collections.Immutable;
 
     using log4net;
 
@@ -22,15 +21,13 @@
         }
 
         public Ix Create(
-            RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> redBlackTree,
-            ImmutableList<IxResultElement> value)
+            RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> value)
         {
             Ix result = null;
 
             try
             {
                 result = new x(
-                    redBlackTree,
                     value);
             }
             catch (Exception exception)

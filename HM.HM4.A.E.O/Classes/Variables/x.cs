@@ -1,8 +1,5 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Variables
 {
-    using System.Collections.Immutable;
-    using System.Linq;
-
     using log4net;
 
     using NGenerics.DataStructures.Trees;
@@ -86,21 +83,8 @@
                     firstInnerRedBlackTree);
             }
 
-            var immutableList = srt.Value
-                .Select(
-                    i => xResultElementFactory.Create(
-                        i.sIndexElement,
-                        i.rIndexElement,
-                        i.tIndexElement,
-                        this.GetElementAt(
-                            i.sIndexElement,
-                            i.rIndexElement,
-                            i.tIndexElement)))
-                .ToImmutableList();
-
             return xFactory.Create(
-                outerRedBlackTree,
-                immutableList);
+                outerRedBlackTree);
         }
     }
 }
