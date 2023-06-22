@@ -25,6 +25,8 @@
             this.Value = value;
         }
 
+        private RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> RedBlackTree { get; }
+
         public ImmutableList<IxResultElement> Value { get; }
 
         public int GetElementAtAsint(
