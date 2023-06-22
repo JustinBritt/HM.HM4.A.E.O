@@ -18,6 +18,7 @@
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioUtilizedTimes;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonScenarioNumberPatients;
+    using NGenerics.DataStructures.Trees;
 
     internal sealed class HM4OutputContext : IHM4OutputContext
     {
@@ -378,7 +379,7 @@
 
         public ImmutableList<Tuple<FhirDateTime, INullableValue<int>, INullableValue<decimal>>> DayScenarioRecoveryWardUtilizationVariances { get; }
 
-        public ImmutableList<Tuple<Organization, Location, FhirDateTime, INullableValue<bool>>> SurgeonOperatingRoomDayAssignments { get; }
+        public RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> SurgeonOperatingRoomDayAssignments { get; }
 
         public ImmutableList<Tuple<Organization, FhirDateTime, INullableValue<bool>>> SurgeonDayAssignments { get; }
     }

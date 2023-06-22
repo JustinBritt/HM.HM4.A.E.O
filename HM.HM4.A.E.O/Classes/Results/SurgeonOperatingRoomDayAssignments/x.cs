@@ -1,6 +1,5 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Results.SurgeonOperatingRoomDayAssignments
 {
-    using System;
     using System.Collections.Immutable;
     using System.Linq;
 
@@ -9,11 +8,13 @@
     using Hl7.Fhir.Model;
 
     using NGenerics.DataStructures.Trees;
+    using NGenerics.Patterns.Visitor;
 
     using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.ResultElements.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.InterfacesFactories.Dependencies.Hl7.Fhir.R4.Model;
+    using HM.HM4.A.E.O.InterfacesVisitors.Results.SurgeonOperatingRoomDayAssignments;
 
     internal sealed class x : Ix
     {
@@ -43,18 +44,19 @@
                 .SingleOrDefault();
         }
         
-        public ImmutableList<Tuple<Organization, Location, FhirDateTime, INullableValue<bool>>> GetValueForOutputContext(
+        public RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> GetValueForOutputContext(
             INullableValueFactory nullableValueFactory)
         {
-            return this.Value
-                .Select(
-                i => Tuple.Create(
-                    i.sIndexElement.Value,
-                    i.rIndexElement.Value,
-                    i.tIndexElement.Value,
-                    nullableValueFactory.Create<bool>(
-                        i.Value)))
-                .ToImmutableList();
+            IxOuterVisitor<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> xOuterVisitor = new HM.HM4.A.E.O.Visitors.Results.SurgeonOperatingRoomDayAssignments.xOuterVisitor<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>>(
+                nullableValueFactory,
+                new HM.HM4.A.E.O.Classes.Comparers.FhirDateTimeComparer(),
+                new HM.HM4.A.E.O.Classes.Comparers.LocationComparer(),
+                new HM.HM4.A.E.O.Classes.Comparers.OrganizationComparer());
+
+            this.RedBlackTree.AcceptVisitor(
+                xOuterVisitor);
+
+            return xOuterVisitor.RedBlackTree;
         }
     }
 }
