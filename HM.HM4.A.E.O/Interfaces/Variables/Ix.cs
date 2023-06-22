@@ -17,8 +17,8 @@
             ItIndexElement tIndexElement);
 
         Interfaces.Results.SurgeonOperatingRoomDayAssignments.Ix GetElementsAt(
-            IxResultElementFactory xHatResultElementFactory,
-            IxFactory xHatFactory,
+            IxResultElementFactory xResultElementFactory,
+            IxFactory xFactory,
             Isrt srt);
     }
 }

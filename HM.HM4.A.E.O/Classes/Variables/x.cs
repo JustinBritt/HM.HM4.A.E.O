@@ -41,14 +41,14 @@
         }
 
         public Interfaces.Results.SurgeonOperatingRoomDayAssignments.Ix GetElementsAt(
-            IxResultElementFactory xHatResultElementFactory,
-            IxFactory xHatFactory,
+            IxResultElementFactory xResultElementFactory,
+            IxFactory xFactory,
             Isrt srt)
         {
-            return xHatFactory.Create(
+            return xFactory.Create(
                 srt.Value
                 .Select(
-                    i => xHatResultElementFactory.Create(
+                    i => xResultElementFactory.Create(
                         i.sIndexElement,
                         i.rIndexElement,
                         i.tIndexElement,
