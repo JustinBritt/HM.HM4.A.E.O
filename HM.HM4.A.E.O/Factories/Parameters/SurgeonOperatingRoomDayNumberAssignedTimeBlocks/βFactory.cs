@@ -1,11 +1,13 @@
 ﻿namespace HM.HM4.A.E.O.Factories.Parameters.SurgeonOperatingRoomDayNumberAssignedTimeBlocks
 {
     using System;
-    using System.Collections.Immutable;
 
     using log4net;
 
+    using NGenerics.DataStructures.Trees;
+
     using HM.HM4.A.E.O.Classes.Parameters.SurgeonOperatingRoomDayNumberAssignedTimeBlocks;
+    using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.ParameterElements.SurgeonOperatingRoomDayNumberAssignedTimeBlocks;
     using HM.HM4.A.E.O.Interfaces.Parameters.SurgeonOperatingRoomDayNumberAssignedTimeBlocks;
     using HM.HM4.A.E.O.InterfacesFactories.Parameters.SurgeonOperatingRoomDayNumberAssignedTimeBlocks;
@@ -19,7 +21,7 @@
         }
 
         public Iβ Create(
-            ImmutableList<IβParameterElement> value)
+            RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<IdIndexElement, IβParameterElement>>> value)
         {
             Iβ parameter = null;
 

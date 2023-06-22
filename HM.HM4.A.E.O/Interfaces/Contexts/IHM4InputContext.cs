@@ -37,7 +37,7 @@
 
         RedBlackTree<Organization, RedBlackTree<Location, INullableValue<bool>>> SurgeonOperatingRoomAssignments { get; }
 
-        ImmutableList<Tuple<Organization, Location, INullableValue<int>, INullableValue<int>>> SurgeonOperatingRoomDayNumberAssignedTimeBlocks { get; }
+        RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<INullableValue<int>, INullableValue<int>>>> SurgeonOperatingRoomDayNumberAssignedTimeBlocks { get; }
 
         RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>> OperatingRoomDayAssignedAvailabilities { get; }
 

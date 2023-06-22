@@ -257,14 +257,17 @@
                 surgeonOperatingRoomAssignmentsOuterVisitor.RedBlackTree);
 
             // β(s, r, d)
+            ISurgeonOperatingRoomDayNumberAssignedTimeBlocksOuterVisitor<Organization, RedBlackTree<Location, RedBlackTree<INullableValue<int>, INullableValue<int>>>> surgeonOperatingRoomDayNumberAssignedTimeBlocksOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.SurgeonOperatingRoomDayNumberAssignedTimeBlocksOuterVisitor<Organization, RedBlackTree<Location, RedBlackTree<INullableValue<int>, INullableValue<int>>>>(
+                parameterElementsAbstractFactory.CreateβParameterElementFactory(),
+                this.d,
+                this.r,
+                this.s);
+
+            this.Context.SurgeonOperatingRoomDayNumberAssignedTimeBlocks.AcceptVisitor(
+                surgeonOperatingRoomDayNumberAssignedTimeBlocksOuterVisitor);
+
             this.β = parametersAbstractFactory.CreateβFactory().Create(
-                this.Context.SurgeonOperatingRoomDayNumberAssignedTimeBlocks
-                .Select(x => parameterElementsAbstractFactory.CreateβParameterElementFactory().Create(
-                    this.s.GetElementAt(x.Item1),
-                    this.r.GetElementAt(x.Item2),
-                    this.d.GetElementAt(x.Item3),
-                    x.Item4))
-                .ToImmutableList());
+                surgeonOperatingRoomDayNumberAssignedTimeBlocksOuterVisitor.RedBlackTree);
 
             // γ(r, t)
             IOperatingRoomDayAssignedAvailabilitiesOuterVisitor<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>> operatingRoomDayAssignedAvailabilitiesOuterVisitor = new HM.HM4.A.E.O.Visitors.Contexts.OperatingRoomDayAssignedAvailabilitiesOuterVisitor<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>(
