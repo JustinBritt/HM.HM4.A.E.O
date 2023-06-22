@@ -5,10 +5,14 @@
 
     using log4net;
 
+    using NGenerics.DataStructures.Trees;
+
     using OPTANO.Modeling.Optimization;
 
     using HM.HM4.A.E.O.Interfaces.CrossJoins;
     using HM.HM4.A.E.O.Interfaces.IndexElements;
+    using HM.HM4.A.E.O.Interfaces.Indices;
+    using HM.HM4.A.E.O.Interfaces.ResultElements.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Variables;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.InterfacesFactories.Results.SurgeonOperatingRoomDayAssignments;
@@ -43,10 +47,46 @@
         public Interfaces.Results.SurgeonOperatingRoomDayAssignments.Ix GetElementsAt(
             IxResultElementFactory xResultElementFactory,
             IxFactory xFactory,
+            Ir r,
+            Is s,
+            It t,
             Isrt srt)
         {
-            return xFactory.Create(
-                srt.Value
+            RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> outerRedBlackTree = new RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>>();
+
+            foreach (IsIndexElement sIndexElement in s.Value.Values)
+            {
+                RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>> firstInnerRedBlackTree = new RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>();
+
+                foreach (IrIndexElement rIndexElement in r.Value.Values)
+                {
+                    RedBlackTree<ItIndexElement, IxResultElement> secondInnerRedBlackTree = new RedBlackTree<ItIndexElement, IxResultElement>();
+
+                    foreach (ItIndexElement tIndexElement in t.Value.Values)
+                    {
+                        secondInnerRedBlackTree.Add(
+                            tIndexElement,
+                            xResultElementFactory.Create(
+                                sIndexElement,
+                                rIndexElement,
+                                tIndexElement,
+                                this.GetElementAt(
+                                    sIndexElement,
+                                    rIndexElement,
+                                    tIndexElement)));
+                    }
+
+                    firstInnerRedBlackTree.Add(
+                        rIndexElement,
+                        secondInnerRedBlackTree);
+                }
+
+                outerRedBlackTree.Add(
+                    sIndexElement,
+                    firstInnerRedBlackTree);
+            }
+
+            var immutableList = srt.Value
                 .Select(
                     i => xResultElementFactory.Create(
                         i.sIndexElement,
@@ -56,7 +96,11 @@
                             i.sIndexElement,
                             i.rIndexElement,
                             i.tIndexElement)))
-                .ToImmutableList());
+                .ToImmutableList();
+
+            return xFactory.Create(
+                outerRedBlackTree,
+                immutableList);
         }
     }
 }

@@ -4,6 +4,7 @@
 
     using HM.HM4.A.E.O.Interfaces.CrossJoins;
     using HM.HM4.A.E.O.Interfaces.IndexElements;
+    using HM.HM4.A.E.O.Interfaces.Indices;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.InterfacesFactories.Results.SurgeonOperatingRoomDayAssignments;
 
@@ -19,6 +20,9 @@
         Interfaces.Results.SurgeonOperatingRoomDayAssignments.Ix GetElementsAt(
             IxResultElementFactory xResultElementFactory,
             IxFactory xFactory,
+            Ir r,
+            Is s,
+            It t,
             Isrt srt);
     }
 }

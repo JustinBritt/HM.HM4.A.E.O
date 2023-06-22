@@ -71,6 +71,9 @@
             Ix x = HM4Model.x.GetElementsAt(
                 resultElementsAbstractFactory.CreatexResultElementFactory(),
                 resultsAbstractFactory.CreatexFactory(),
+                HM4Model.r,
+                HM4Model.s,
+                HM4Model.t,
                 HM4Model.srt);
 
             this.SurgeonOperatingRoomDayAssignments = x

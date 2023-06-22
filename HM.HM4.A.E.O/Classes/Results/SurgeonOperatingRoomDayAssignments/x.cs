@@ -20,12 +20,15 @@
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public x(
+            RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> redBlackTree,
             ImmutableList<IxResultElement> value)
         {
+            this.RedBlackTree = redBlackTree;
+
             this.Value = value;
         }
 
-        private RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> RedBlackTree { get; }
+        private RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> RedBlackTree { get; }
 
         public ImmutableList<IxResultElement> Value { get; }
 
