@@ -24,7 +24,7 @@
 
         TimeSpan OverallWallTime { get; }
 
-        ImmutableList<Location> S1 { get; }
+        ImmutableSortedSet<Location> S1 { get; }
 
         ImmutableList<Tuple<Location, INullableValue<int>, INullableValue<int>>> S2 { get; }
 

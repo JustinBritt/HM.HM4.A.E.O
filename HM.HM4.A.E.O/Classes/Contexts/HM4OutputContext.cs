@@ -88,7 +88,8 @@
                 HM4Model.r,
                 HM4Model.Δ,
                 x)
-                .GetValueForOutputContext();
+                .GetValueForOutputContext()
+                .ToImmutableSortedSet(new HM.HM4.A.E.O.Classes.Comparers.LocationComparer());
 
             // S2
             this.S2 = calculationsAbstractFactory.CreateS2CalculationFactory().Create().Calculate(
@@ -349,7 +350,7 @@
 
         public TimeSpan OverallWallTime { get; }
 
-        public ImmutableList<Location> S1 { get; }
+        public ImmutableSortedSet<Location> S1 { get; }
 
         public ImmutableList<Tuple<Location, INullableValue<int>, INullableValue<int>>> S2 { get; }
 
