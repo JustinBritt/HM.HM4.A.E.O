@@ -53,7 +53,7 @@
 
             RedBlackTree<FhirDateTime, INullableValue<bool>> value = obj.Value;
 
-            var innerVisitor = new OperatingRoomDayAssignedAvailabilitiesInnerVisitor<FhirDateTime, INullableValue<bool>>(
+            IOperatingRoomDayAssignedAvailabilitiesInnerVisitor<FhirDateTime, INullableValue<bool>> innerVisitor = new OperatingRoomDayAssignedAvailabilitiesInnerVisitor<FhirDateTime, INullableValue<bool>>(
                 this.γParameterElementFactory,
                 rIndexElement,
                 this.t);

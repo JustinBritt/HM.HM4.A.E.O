@@ -58,7 +58,7 @@
 
             RedBlackTree<INullableValue<int>, INullableValue<decimal>> value = obj.Value;
 
-            var innerVisitor = new SurgeonDayScenarioCumulativeNumberPatientsSecondInnerVisitor<INullableValue<int>, INullableValue<decimal>>(
+            ISurgeonDayScenarioCumulativeNumberPatientsSecondInnerVisitor<INullableValue<int>, INullableValue<decimal>> innerVisitor = new SurgeonDayScenarioCumulativeNumberPatientsSecondInnerVisitor<INullableValue<int>, INullableValue<decimal>>(
                 this.ΦHatParameterElementFactory,
                 this.sIndexElement,
                 lIndexElement,

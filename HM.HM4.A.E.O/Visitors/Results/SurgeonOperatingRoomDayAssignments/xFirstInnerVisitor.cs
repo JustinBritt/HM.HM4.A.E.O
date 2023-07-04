@@ -51,7 +51,7 @@
 
             RedBlackTree<ItIndexElement, IxResultElement> value = obj.Value;
 
-            var innerVisitor = new xSecondInnerVisitor<ItIndexElement, IxResultElement>(
+            IxSecondInnerVisitor<ItIndexElement, IxResultElement> innerVisitor = new xSecondInnerVisitor<ItIndexElement, IxResultElement>(
                 this.NullableValueFactory,
                 this.FhirDateTimeComparer);
 

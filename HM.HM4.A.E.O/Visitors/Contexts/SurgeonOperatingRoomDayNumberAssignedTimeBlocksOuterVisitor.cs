@@ -58,7 +58,7 @@
 
             RedBlackTree<Location, RedBlackTree<INullableValue<int>, INullableValue<int>>> value = obj.Value;
 
-            var innerVisitor = new SurgeonOperatingRoomDayNumberAssignedTimeBlocksFirstInnerVisitor<Location, RedBlackTree<INullableValue<int>, INullableValue<int>>>(
+            ISurgeonOperatingRoomDayNumberAssignedTimeBlocksFirstInnerVisitor<Location, RedBlackTree<INullableValue<int>, INullableValue<int>>> innerVisitor = new SurgeonOperatingRoomDayNumberAssignedTimeBlocksFirstInnerVisitor<Location, RedBlackTree<INullableValue<int>, INullableValue<int>>>(
                 this.βParameterElementFactory,
                 sIndexElement,
                 this.d,
