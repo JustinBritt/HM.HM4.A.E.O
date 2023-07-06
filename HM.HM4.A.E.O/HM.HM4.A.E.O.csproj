@@ -34,9 +34,4 @@
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="InterfacesVisitors\Results\DayScenarioRecoveryWardCensuses\" />
-    <Folder Include="Visitors\Results\DayScenarioRecoveryWardCensuses\" />
-  </ItemGroup>
 </Project>
