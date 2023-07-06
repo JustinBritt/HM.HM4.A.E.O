@@ -1,6 +1,7 @@
 ﻿namespace HM.HM4.A.E.O.InterfacesAbstractFactories
 {
     using HM.HM4.A.E.O.InterfacesFactories.Dependencies.Hl7.Fhir.R4.Model;
+    using HM.HM4.A.E.O.InterfacesFactories.Dependencies.NGenerics.DataStructures.Trees;
     using HM.HM4.A.E.O.InterfacesFactories.Dependencies.OPTANO.Modeling.Optimization;
     using HM.HM4.A.E.O.InterfacesFactories.Dependencies.OPTANO.Modeling.Optimization.Configuration;
 
@@ -15,6 +16,8 @@
         INullableValueFactory CreateNullableValueFactory();
 
         IObjectiveFactory CreateObjectiveFactory();
+
+        IRedBlackTreeFactory CreateRedBlackTreeFactory();
 
         ISolverFactory CreateSolverFactory();
 
