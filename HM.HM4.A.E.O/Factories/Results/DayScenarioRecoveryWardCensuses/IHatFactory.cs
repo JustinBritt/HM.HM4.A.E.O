@@ -1,11 +1,13 @@
 ﻿namespace HM.HM4.A.E.O.Factories.Results.DayScenarioRecoveryWardCensuses
 {
     using System;
-    using System.Collections.Immutable;
 
     using log4net;
 
+    using NGenerics.DataStructures.Trees;
+
     using HM.HM4.A.E.O.Classes.Results.DayScenarioRecoveryWardCensuses;
+    using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.ResultElements.DayScenarioRecoveryWardCensuses;
     using HM.HM4.A.E.O.Interfaces.Results.DayScenarioRecoveryWardCensuses;
     using HM.HM4.A.E.O.InterfacesFactories.Results.DayScenarioRecoveryWardCensuses;
@@ -19,7 +21,7 @@
         }
 
         public IIHat Create(
-            ImmutableList<IIHatResultElement> value)
+            RedBlackTree<ItIndexElement, RedBlackTree<IΛIndexElement, IIHatResultElement>> value)
         {
             IIHat result = null;
 

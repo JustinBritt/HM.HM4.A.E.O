@@ -16,7 +16,7 @@
 
         INullableValue<decimal> Gap { get; }
 
-        ImmutableList<Tuple<FhirDateTime, INullableValue<int>, INullableValue<decimal>>> DayScenarioRecoveryWardCensuses { get; }
+        RedBlackTree<FhirDateTime, RedBlackTree<INullableValue<int>, INullableValue<decimal>>> DayScenarioRecoveryWardCensuses { get; }
 
         long NumberOfExploredNodes { get; }
 
