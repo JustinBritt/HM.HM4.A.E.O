@@ -171,9 +171,11 @@
 
             // z(s, t) 
             Interfaces.Results.SurgeonDayAssignments.Iz z = HM4Model.z.GetElementsAt(
+                dependenciesAbstractFactory.CreateRedBlackTreeFactory(),
                 resultElementsAbstractFactory.CreatezResultElementFactory(),
                 resultsAbstractFactory.CreatezFactory(),
-                HM4Model.st);
+                HM4Model.s,
+                HM4Model.t);
 
             this.SurgeonDayAssignments = z
                 .GetValueForOutputContext(
@@ -382,6 +384,6 @@
 
         public RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> SurgeonOperatingRoomDayAssignments { get; }
 
-        public ImmutableList<Tuple<Organization, FhirDateTime, INullableValue<bool>>> SurgeonDayAssignments { get; }
+        public RedBlackTree<Organization, RedBlackTree<FhirDateTime, INullableValue<bool>>> SurgeonDayAssignments { get; }
     }
 }

@@ -1,51 +1,49 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Results.SurgeonDayAssignments
 {
-    using System;
-    using System.Collections.Immutable;
-    using System.Linq;
-
     using log4net;
 
     using Hl7.Fhir.Model;
+
+    using NGenerics.DataStructures.Trees;
+    using NGenerics.Patterns.Visitor;
 
     using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.ResultElements.SurgeonDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonDayAssignments;
     using HM.HM4.A.E.O.InterfacesFactories.Dependencies.Hl7.Fhir.R4.Model;
+    using HM.HM4.A.E.O.InterfacesVisitors.Results.SurgeonDayAssignments;
 
     internal sealed class z : Iz
     {
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public z(
-            ImmutableList<IzResultElement> value)
+            RedBlackTree<IsIndexElement, RedBlackTree<ItIndexElement, IzResultElement>> value)
         {
             this.Value = value;
         }
 
-        public ImmutableList<IzResultElement> Value { get; }
+        public RedBlackTree<IsIndexElement, RedBlackTree<ItIndexElement, IzResultElement>> Value { get; }
 
         public int GetElementAtAsint(
             IsIndexElement sIndexElement,
             ItIndexElement tIndexElement)
         {
-            return this.Value
-                .Where(x => x.sIndexElement == sIndexElement && x.tIndexElement == tIndexElement)
-                .Select(x => x.Value ? 1 : 0)
-                .SingleOrDefault();
+            return this.Value[sIndexElement][tIndexElement].Value ? 1 : 0;
         }
 
-        public ImmutableList<Tuple<Organization, FhirDateTime, INullableValue<bool>>> GetValueForOutputContext(
+        public RedBlackTree<Organization, RedBlackTree<FhirDateTime, INullableValue<bool>>> GetValueForOutputContext(
             INullableValueFactory nullableValueFactory)
         {
-            return this.Value
-                .Select(
-                i => Tuple.Create(
-                    i.sIndexElement.Value,
-                    i.tIndexElement.Value,
-                    nullableValueFactory.Create<bool>(
-                        i.Value)))
-                .ToImmutableList();
+            IzOuterVisitor<IsIndexElement, RedBlackTree<ItIndexElement, IzResultElement>> zOuterVisitor = new HM.HM4.A.E.O.Visitors.Results.SurgeonDayAssignments.zOuterVisitor<IsIndexElement, RedBlackTree<ItIndexElement, IzResultElement>>(
+                nullableValueFactory,
+                new HM.HM4.A.E.O.Classes.Comparers.FhirDateTimeComparer(),
+                new HM.HM4.A.E.O.Classes.Comparers.OrganizationComparer());
+
+            this.Value.AcceptVisitor(
+                zOuterVisitor);
+
+            return zOuterVisitor.RedBlackTree;
         }
     }
 }

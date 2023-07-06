@@ -56,6 +56,6 @@
 
         RedBlackTree<Organization, RedBlackTree<Location, RedBlackTree<FhirDateTime, INullableValue<bool>>>> SurgeonOperatingRoomDayAssignments { get; }
 
-        ImmutableList<Tuple<Organization, FhirDateTime, INullableValue<bool>>> SurgeonDayAssignments { get; }
+        RedBlackTree<Organization, RedBlackTree<FhirDateTime, INullableValue<bool>>> SurgeonDayAssignments { get; }
     }
 }

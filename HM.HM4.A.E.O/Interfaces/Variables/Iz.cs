@@ -2,8 +2,9 @@
 {
     using OPTANO.Modeling.Optimization;
 
-    using HM.HM4.A.E.O.Interfaces.CrossJoins;
     using HM.HM4.A.E.O.Interfaces.IndexElements;
+    using HM.HM4.A.E.O.Interfaces.Indices;
+    using HM.HM4.A.E.O.InterfacesFactories.Dependencies.NGenerics.DataStructures.Trees;
     using HM.HM4.A.E.O.InterfacesFactories.ResultElements.SurgeonDayAssignments;
     using HM.HM4.A.E.O.InterfacesFactories.Results.SurgeonDayAssignments;
 
@@ -16,8 +17,10 @@
             ItIndexElement tIndexElement);
 
         Interfaces.Results.SurgeonDayAssignments.Iz GetElementsAt(
+            IRedBlackTreeFactory redBlackTreeFactory,
             IzResultElementFactory zResultElementFactory,
             IzFactory zFactory,
-            Ist st);
+            Is s,
+            It t);
     }
 }
