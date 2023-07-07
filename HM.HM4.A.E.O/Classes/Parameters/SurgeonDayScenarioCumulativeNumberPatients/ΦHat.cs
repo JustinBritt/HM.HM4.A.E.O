@@ -25,7 +25,22 @@
             IlIndexElement lIndexElement,
             IΛIndexElement ΛIndexElement)
         {
-            return this.Value[sIndexElement][lIndexElement][ΛIndexElement].Value.Value.Value;
+            RedBlackTree<IlIndexElement, RedBlackTree<IΛIndexElement, IΦHatParameterElement>> firstInnerTree = this.Value[sIndexElement];
+
+            RedBlackTree<IΛIndexElement, IΦHatParameterElement> secondInnerTree;
+
+            bool result = firstInnerTree.TryGetValue(
+                lIndexElement,
+                out secondInnerTree);
+
+            if (result)
+            {
+                return secondInnerTree[ΛIndexElement].Value.Value.Value;
+            }
+            else
+            {
+                return 0m;
+            }
         }
     }
 }
