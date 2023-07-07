@@ -35,6 +35,7 @@
         {
             return this.Value[sIndexElement][rIndexElement][tIndexElement].Value ? 1 : 0;
         }
+
         public ImmutableList<IxResultElement> GetElementsAsImmutableList()
         {
             return this.Value.SelectMany(w => w.Value).SelectMany(w => w.Value).Select(w => w.Value).ToImmutableList();
