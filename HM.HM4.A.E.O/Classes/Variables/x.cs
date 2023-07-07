@@ -6,7 +6,6 @@
 
     using OPTANO.Modeling.Optimization;
 
-    using HM.HM4.A.E.O.Interfaces.CrossJoins;
     using HM.HM4.A.E.O.Interfaces.IndexElements;
     using HM.HM4.A.E.O.Interfaces.Indices;
     using HM.HM4.A.E.O.Interfaces.ResultElements.SurgeonOperatingRoomDayAssignments;
@@ -46,8 +45,7 @@
             IxFactory xFactory,
             Ir r,
             Is s,
-            It t,
-            Isrt srt)
+            It t)
         {
             RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>> outerRedBlackTree = new RedBlackTree<IsIndexElement, RedBlackTree<IrIndexElement, RedBlackTree<ItIndexElement, IxResultElement>>>();
 
