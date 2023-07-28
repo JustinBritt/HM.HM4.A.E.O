@@ -62,7 +62,7 @@
                         W.Value.Value.Value)
                         .Select(x => γ.GetElementAtAsint(
                             rIndexElement,
-                            t.GetElementAt(x.Key)))
+                            x))
                         .Sum();
 
                     if (γSum < δ3Asint)
