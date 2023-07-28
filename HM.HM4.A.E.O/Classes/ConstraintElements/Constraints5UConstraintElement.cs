@@ -28,7 +28,7 @@
             Iδ4 δ4,
             Ix x)
         {
-            OPTANO.Modeling.Optimization.Expression LHS = OPTANO.Modeling.Optimization.Expression.Sum(
+            Expression LHS = Expression.Sum(
                 t.GetNthElementsAt(
                     tIndexElement.Key,
                     tIndexElement.Key
