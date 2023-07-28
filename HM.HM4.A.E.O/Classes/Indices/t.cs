@@ -50,7 +50,6 @@
         {
             ImmutableList<ItIndexElement>.Builder builder = ImmutableList.CreateBuilder<ItIndexElement>();
 
-            // max i: this.t.Value.Distinct().Count() - (int)this.W.Value.Value + (int)dIndexElement.Value.Value
             for (int i = startKey; i <= endKey; i = i + N)
             {
                 builder.Add(
