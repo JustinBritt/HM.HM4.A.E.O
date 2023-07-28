@@ -59,7 +59,7 @@
                 // Case (iii)
                 else
                 {
-                    value = (γSum / (γSum - βAsint));
+                    value = γSum / (γSum - βAsint);
                 }
             }
             
