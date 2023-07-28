@@ -1,5 +1,6 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Calculations.TimeBlocks
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using log4net;
@@ -50,36 +51,33 @@
                     tIndexElement,
                     1);
             }
-            else
+            else if (δ3Asint >= 0)
             {
-                int δ4 = 1;
+                List<KeyValuePair<int, int>> sums = new List<KeyValuePair<int, int>>();
 
-                do
+                for (int candidate = 1; candidate <= 100; candidate = candidate + 1)
                 {
-                    γSum = t.GetNthElementsAt(
+                    int γSum2 = t.GetNthElementsAt(
                         tIndexElement.Key,
-                        tIndexElement.Key + (δ4 - 1) * W.Value.Value.Value,
+                        tIndexElement.Key + (candidate - 1) * W.Value.Value.Value,
                         W.Value.Value.Value)
                         .Select(x => γ.GetElementAtAsint(
                             rIndexElement,
                             x))
                         .Sum();
 
-                    if (γSum < δ3Asint)
-                    {
-                        δ4 = δ4 + 1;
-                    }
-                } while (γSum < δ3Asint);
-
-                if (γSum == δ3Asint)
-                {
-                    δ4ParameterElement = δ4ParameterElementFactory.Create(
-                        sIndexElement,
-                        rIndexElement,
-                        dIndexElement,
-                        tIndexElement,
-                        δ4);
+                    sums.Add(
+                        KeyValuePair.Create(
+                            candidate, 
+                            γSum2));
                 }
+
+                δ4ParameterElement = δ4ParameterElementFactory.Create(
+                    sIndexElement,
+                    rIndexElement,
+                    dIndexElement,
+                    tIndexElement,
+                    sums.Where(w => w.Value == δ3Asint).Select(w => w.Key).SingleOrDefault());
             }
 
             return δ4ParameterElement;
