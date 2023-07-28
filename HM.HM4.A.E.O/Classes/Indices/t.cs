@@ -72,7 +72,18 @@
             int a,
             int n)
         {
-            return (int)(a - n * Math.Floor((decimal)(a - 1) / (n)));
+            if (a < n)
+            {
+                return a;
+            }
+            else if (a == n)
+            {
+                return n;
+            }
+            else
+            {
+                return (int)(a - n * Math.Floor((decimal)(a) / (n)));
+            }
         }
     }
 }

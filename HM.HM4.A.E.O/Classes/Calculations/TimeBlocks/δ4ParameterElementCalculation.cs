@@ -44,11 +44,11 @@
             if (δ3Asint == 0)
             {
                 δ4ParameterElement = δ4ParameterElementFactory.Create(
-                            sIndexElement,
-                            rIndexElement,
-                            dIndexElement,
-                            tIndexElement,
-                            1);
+                    sIndexElement,
+                    rIndexElement,
+                    dIndexElement,
+                    tIndexElement,
+                    1);
             }
             else
             {
@@ -57,25 +57,28 @@
                 do
                 {
                     γSum = t.GetNthElementsAt(
-                        dIndexElement.Value.Value.Value,
-                        dIndexElement.Value.Value.Value + (δ4 - 1) * W.Value.Value.Value,
+                        tIndexElement.Key,
+                        tIndexElement.Key + (δ4 - 1) * W.Value.Value.Value,
                         W.Value.Value.Value)
                         .Select(x => γ.GetElementAtAsint(
                             rIndexElement,
                             t.GetElementAt(x.Key)))
                         .Sum();
 
-                    δ4 = δ4 + 1;
+                    if (γSum < δ3Asint)
+                    {
+                        δ4 = δ4 + 1;
+                    }
                 } while (γSum < δ3Asint);
 
                 if (γSum == δ3Asint)
                 {
                     δ4ParameterElement = δ4ParameterElementFactory.Create(
-                            sIndexElement,
-                            rIndexElement,
-                            dIndexElement,
-                            tIndexElement,
-                            δ4 - 1); // Subtract 1 to account for last iteration of the do-while loop
+                        sIndexElement,
+                        rIndexElement,
+                        dIndexElement,
+                        tIndexElement,
+                        δ4);
                 }
             }
 

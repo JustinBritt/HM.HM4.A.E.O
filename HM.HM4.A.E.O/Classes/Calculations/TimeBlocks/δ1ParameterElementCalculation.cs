@@ -44,10 +44,14 @@
                     y))
                 .Sum();
 
+            decimal γSumAsdecimal = (decimal)γSum;
+
             int βAsint = β.GetElementAtAsint(
                 sIndexElement,
                 rIndexElement,
                 dIndexElement);
+
+            decimal βAsdecimal = (decimal)βAsint;
 
             if (βAsint > 0)
             {
@@ -59,16 +63,16 @@
                 else if ((γSum % βAsint) != 0)
                 {
                     // Case (ii)
-                    if (βAsint < (γSum / 2))
+                    if (βAsdecimal < (γSumAsdecimal / 2m))
                     {
                         value = 0;
                     }
                     // Case (iii)
-                    else if ((βAsint > (γSum / 2)) && (βAsint < γSum))
+                    else if ((βAsdecimal > (γSumAsdecimal / 2m)) && (βAsint < γSum))
                     {
                         value =
                             (int)Math.Floor(
-                                (decimal)(γSum / (γSum - βAsint)))
+                                (γSumAsdecimal / (γSumAsdecimal - βAsdecimal)))
                             -
                             1;
                     }

@@ -33,7 +33,7 @@
                 rIndexElement,
                 dIndexElement);
 
-            OPTANO.Modeling.Optimization.Expression RHS = OPTANO.Modeling.Optimization.Expression.Sum(
+            Expression RHS = Expression.Sum(
                 t.GetNthElementsAt(
                     tIndexElement.Key,
                     tIndexElement.Key 
