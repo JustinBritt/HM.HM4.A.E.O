@@ -57,8 +57,8 @@
                 do
                 {
                     γSum = t.GetNthElementsAt(
-                        dIndexElement.Value.Value.Value,
-                        dIndexElement.Value.Value.Value + (δ4 - 1) * W.Value.Value.Value,
+                        tIndexElement.Key,
+                        tIndexElement.Key + (δ4 - 1) * W.Value.Value.Value,
                         W.Value.Value.Value)
                         .Select(x => γ.GetElementAtAsint(
                             rIndexElement,
