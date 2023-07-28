@@ -50,6 +50,8 @@
         {
             ImmutableList<ItIndexElement>.Builder builder = ImmutableList.CreateBuilder<ItIndexElement>();
 
+            var T = this.GetT();
+
             for (int i = startKey; i <= endKey; i = i + N)
             {
                 builder.Add(
@@ -57,7 +59,9 @@
                        i));
             }
 
-            return builder.ToImmutableList();
+            return builder
+                .OrderBy(w => w.Key)
+                .ToImmutableList();
         }
 
         public int GetT()
