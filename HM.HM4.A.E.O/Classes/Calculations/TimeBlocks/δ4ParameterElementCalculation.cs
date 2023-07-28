@@ -51,7 +51,7 @@
                     tIndexElement,
                     1);
             }
-            else if (δ3Asint >= 0)
+            else if (δ3Asint > 0)
             {
                 List<KeyValuePair<int, int>> sums = new List<KeyValuePair<int, int>>();
 
