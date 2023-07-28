@@ -35,8 +35,6 @@
         {
             Iδ4ParameterElement δ4ParameterElement = null;
 
-            int γSum = 0;
-
             int δ3Asint = δ3.GetElementAtAsint(
                 sIndexElement,
                 rIndexElement,
@@ -57,7 +55,7 @@
 
                 for (int candidate = 1; candidate <= 100; candidate = candidate + 1)
                 {
-                    int γSum2 = t.GetNthElementsAt(
+                    int γSum = t.GetNthElementsAt(
                         tIndexElement.Key,
                         tIndexElement.Key + (candidate - 1) * W.Value.Value.Value,
                         W.Value.Value.Value)
@@ -69,7 +67,7 @@
                     sums.Add(
                         KeyValuePair.Create(
                             candidate, 
-                            γSum2));
+                            γSum));
                 }
 
                 δ4ParameterElement = δ4ParameterElementFactory.Create(
