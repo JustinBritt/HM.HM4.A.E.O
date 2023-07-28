@@ -60,7 +60,7 @@
                 {
                     value = 1;
                 }
-                else if ((γSum % βAsint) != 0)
+                else if ((γSum % βAsint) > 0)
                 {
                     // Case (ii)
                     if (βAsdecimal < (γSumAsdecimal / 2m))
