@@ -398,8 +398,8 @@
                     model: this.Model, 
                     indexSet1: this.t.Value.Values, 
                     indexSet2: this.Λ.Value.Values, 
-                    lowerBoundGenerator: (a, b) => 0,
-                    upperBoundGenerator: (a, b) => double.MaxValue, 
+                    lowerBoundGenerator: (a, b) => (double)0,
+                    upperBoundGenerator: (a, b) => (double)10 * this.Ω.Value.Value.Value, 
                     variableTypeGenerator: (a, b) => VariableType.Continuous)); 
 
             // x(s, r, t)
