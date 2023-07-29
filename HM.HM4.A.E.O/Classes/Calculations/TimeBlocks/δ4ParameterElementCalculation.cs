@@ -53,7 +53,7 @@
             {
                 List<KeyValuePair<int, int>> sums = new List<KeyValuePair<int, int>>();
 
-                for (int candidate = 1; candidate <= 100; candidate = candidate + 1)
+                for (int candidate = 1; candidate <= 8; candidate = candidate + 1)
                 {
                     int γSum = t.GetNthElementsAt(
                         tIndexElement.Key,
