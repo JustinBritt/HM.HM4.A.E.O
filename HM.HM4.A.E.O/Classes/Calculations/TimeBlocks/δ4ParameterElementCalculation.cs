@@ -40,16 +40,7 @@
                 rIndexElement,
                 dIndexElement);
 
-            if (δ3Asint == 0)
-            {
-                δ4ParameterElement = δ4ParameterElementFactory.Create(
-                    sIndexElement,
-                    rIndexElement,
-                    dIndexElement,
-                    tIndexElement,
-                    1);
-            }
-            else
+            if (δ3Asint > 0)
             {
                 List<KeyValuePair<int, int>> sums = new List<KeyValuePair<int, int>>();
 
