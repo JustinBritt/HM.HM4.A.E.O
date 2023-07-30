@@ -32,7 +32,7 @@
             Iβ β,
             Iγ γ)
         {
-            int value = 0;
+            int value = 1;
 
             int γSum = t.GetNthElementsAt(
                 dIndexElement.Value.Value.Value,
