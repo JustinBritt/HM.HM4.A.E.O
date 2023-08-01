@@ -8,6 +8,7 @@
     using OPTANO.Modeling.Common;
     using OPTANO.Modeling.Optimization;
     using OPTANO.Modeling.Optimization.Interfaces;
+    using OPTANO.Modeling.Optimization.Solver;
 
     using HM.HM4.A.E.O.InterfacesAbstractFactories;
     using HM.HM4.A.E.O.Interfaces.Configurations;
@@ -68,13 +69,13 @@
                         variablesAbstractFactory,
                         HM4InputContext);
 
-                    OPTANO.Modeling.Optimization.Solver.ModelStatus modelStatus = OPTANO.Modeling.Optimization.Solver.ModelStatus.Unknown;
+                    ModelStatus modelStatus = ModelStatus.Unknown;
 
                     using (ISolver solver = dependenciesAbstractFactory.CreateSolverFactory().Create(solverConfiguration))
                     {
                         Solution solution = solver?.Solve(model?.Model);
 
-                        if (solution?.ModelStatus == OPTANO.Modeling.Optimization.Solver.ModelStatus.Feasible)
+                        if (solution?.ModelStatus == ModelStatus.Feasible)
                         {
                             model.Model.VariableCollections.ForEach(vc => vc.SetVariableValues(solution.VariableValues));
 
@@ -88,7 +89,7 @@
                         }
                         else
                         {
-                            while (modelStatus != OPTANO.Modeling.Optimization.Solver.ModelStatus.Feasible)
+                            while (modelStatus != ModelStatus.Feasible)
                             {
                                 ConflictingSet conflictingSet = solution.ConflictingSet;
 
@@ -101,7 +102,7 @@
                                 solution = solver?.Solve(
                                     model?.Model);
 
-                                modelStatus = (OPTANO.Modeling.Optimization.Solver.ModelStatus)(solution?.ModelStatus);
+                                modelStatus = (ModelStatus)(solution?.ModelStatus);
                             }
 
                             model.Model.VariableCollections.ForEach(vc => vc.SetVariableValues(solution.VariableValues));
