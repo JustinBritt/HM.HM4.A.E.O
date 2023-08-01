@@ -1,5 +1,6 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Solutions
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using log4net;
@@ -14,7 +15,7 @@
     using HM.HM4.A.E.O.Interfaces.Models;
     using HM.HM4.A.E.O.Interfaces.Solutions;
     using HM.HM4.A.E.O.Interfaces.SolverConfigurations;
-
+    
     internal sealed class HM4Solution : IHM4Solution
     {
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -67,12 +68,42 @@
                         variablesAbstractFactory,
                         HM4InputContext);
 
+                    OPTANO.Modeling.Optimization.Solver.ModelStatus modelStatus = OPTANO.Modeling.Optimization.Solver.ModelStatus.Unknown;
+
                     using (ISolver solver = dependenciesAbstractFactory.CreateSolverFactory().Create(solverConfiguration))
                     {
                         Solution solution = solver?.Solve(model?.Model);
 
                         if (solution?.ModelStatus == OPTANO.Modeling.Optimization.Solver.ModelStatus.Feasible)
                         {
+                            model.Model.VariableCollections.ForEach(vc => vc.SetVariableValues(solution.VariableValues));
+
+                            HM4OutputContext = contextsAbstractFactory.CreateHM4OutputContextFactory().Create(
+                                calculationsAbstractFactory,
+                                dependenciesAbstractFactory,
+                                resultElementsAbstractFactory,
+                                resultsAbstractFactory,
+                                model,
+                                solution);
+                        }
+                        else
+                        {
+                            while (modelStatus != OPTANO.Modeling.Optimization.Solver.ModelStatus.Feasible)
+                            {
+                                ConflictingSet conflictingSet = solution.ConflictingSet;
+
+                                model.Model.RemoveConstraints(
+                                    conflictingSet.ConstraintsLB.Where(w => w.IsRangeConstraint() == true).Select(w => w.Name));
+
+                                model.Model.RemoveConstraints(
+                                    conflictingSet.ConstraintsUB.Where(w => w.IsRangeConstraint() == true).Select(w => w.Name));
+
+                                solution = solver?.Solve(
+                                    model?.Model);
+
+                                modelStatus = (OPTANO.Modeling.Optimization.Solver.ModelStatus)(solution?.ModelStatus);
+                            }
+
                             model.Model.VariableCollections.ForEach(vc => vc.SetVariableValues(solution.VariableValues));
 
                             HM4OutputContext = contextsAbstractFactory.CreateHM4OutputContextFactory().Create(
