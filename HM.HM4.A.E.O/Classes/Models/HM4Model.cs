@@ -469,7 +469,7 @@
                         this.x)
                     .Value));
 
-            // Constraints 5L
+            // Constraints 5
             this.Model.AddConstraints(
                 this.srd.Value
                 .SelectMany(b =>
@@ -479,7 +479,7 @@
                     this.W.Value.Value.Value),
                     (a, b) => Tuple.Create(a.sIndexElement, a.rIndexElement, a.dIndexElement, b))
                 .Select(
-                    x => constraintElementsAbstractFactory.CreateConstraints5LConstraintElementFactory().Create(
+                    x => constraintElementsAbstractFactory.CreateConstraints5ConstraintElementFactory().Create(
                         x.Item3,
                         x.Item2,
                         x.Item1,
@@ -487,27 +487,6 @@
                         this.t,
                         this.W,
                         this.δ1,
-                        this.δ4,
-                        this.x)
-                    .Value));
-
-            // Constraints 5U
-            this.Model.AddConstraints(
-                this.srd.Value
-                .SelectMany(b =>
-                this.t.GetNthElementsAt(
-                    b.dIndexElement.Value.Value.Value,
-                    this.t.GetT() - this.W.Value.Value.Value + b.dIndexElement.Value.Value.Value,
-                    this.W.Value.Value.Value),
-                    (a, b) => Tuple.Create(a.sIndexElement, a.rIndexElement, a.dIndexElement, b))
-                .Select(
-                    x => constraintElementsAbstractFactory.CreateConstraints5UConstraintElementFactory().Create(
-                        x.Item3,
-                        x.Item2,
-                        x.Item1,
-                        x.Item4,
-                        this.t,
-                        this.W,
                         this.δ2,
                         this.δ4,
                         this.x)
