@@ -88,6 +88,24 @@
             return factory;
         }
 
+        public IConstraints5ConstraintElementFactory CreateConstraints5ConstraintElementFactory()
+        {
+            IConstraints5ConstraintElementFactory factory = null;
+
+            try
+            {
+                factory = new Constraints5ConstraintElementFactory();
+            }
+            catch (Exception exception)
+            {
+                this.Log.Error(
+                    exception.Message,
+                    exception);
+            }
+
+            return factory;
+        }
+
         public IConstraints5LConstraintElementFactory CreateConstraints5LConstraintElementFactory()
         {
             IConstraints5LConstraintElementFactory factory = null;

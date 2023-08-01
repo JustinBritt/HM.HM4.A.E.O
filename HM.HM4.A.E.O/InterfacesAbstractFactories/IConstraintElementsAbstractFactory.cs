@@ -12,6 +12,8 @@
 
         IConstraints4ConstraintElementFactory CreateConstraints4ConstraintElementFactory();
 
+        IConstraints5ConstraintElementFactory CreateConstraints5ConstraintElementFactory();
+
         IConstraints5LConstraintElementFactory CreateConstraints5LConstraintElementFactory();
 
         IConstraints5UConstraintElementFactory CreateConstraints5UConstraintElementFactory();
