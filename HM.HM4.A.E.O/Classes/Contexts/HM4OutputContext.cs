@@ -362,7 +362,7 @@
 
         public ImmutableList<Tuple<Location, INullableValue<int>, INullableValue<int>>> S2 { get; }
 
-        public ImmutableList<Tuple<INullableValue<int>, INullableValue<int>>> ScenarioNumberPatients { get; }
+        public RedBlackTree<INullableValue<int>, INullableValue<int>> ScenarioNumberPatients { get; }
 
         public ImmutableList<Tuple<INullableValue<int>, INullableValue<decimal>>> ScenarioTotalTimes { get; }
 

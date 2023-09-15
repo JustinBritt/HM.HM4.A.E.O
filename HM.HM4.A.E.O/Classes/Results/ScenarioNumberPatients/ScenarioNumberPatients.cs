@@ -1,12 +1,12 @@
 ﻿namespace HM.HM4.A.E.O.Classes.Results.ScenarioNumberPatients
 {
-    using System;
     using System.Collections.Immutable;
-    using System.Linq;
 
     using log4net;
 
     using Hl7.Fhir.Model;
+
+    using NGenerics.DataStructures.Trees;
 
     using HM.HM4.A.E.O.Interfaces.ResultElements.ScenarioNumberPatients;
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioNumberPatients;
@@ -24,16 +24,21 @@
 
         public ImmutableList<IScenarioNumberPatientsResultElement> Value { get; }
 
-        public ImmutableList<Tuple<INullableValue<int>, INullableValue<int>>> GetValueForOutputContext(
+        public RedBlackTree<INullableValue<int>, INullableValue<int>> GetValueForOutputContext(
             INullableValueFactory nullableValueFactory)
         {
-            return this.Value
-                .Select(
-                    i => Tuple.Create(
-                        (INullableValue<int>)i.ΛIndexElement.Value,
-                        nullableValueFactory.Create<int>(
-                            i.Value)))
-                .ToImmutableList();
+            RedBlackTree<INullableValue<int>, INullableValue<int>> redBlackTree = new(
+                new HM.HM4.A.E.O.Classes.Comparers.NullableValueintComparer());
+
+            foreach (IScenarioNumberPatientsResultElement scenarioNumberPatientsResultElement in this.Value)
+            {
+                redBlackTree.Add(
+                    scenarioNumberPatientsResultElement.ΛIndexElement.Value,
+                    nullableValueFactory.Create<int>(
+                        scenarioNumberPatientsResultElement.Value));
+            }
+
+            return redBlackTree;
         }
     }
 }
