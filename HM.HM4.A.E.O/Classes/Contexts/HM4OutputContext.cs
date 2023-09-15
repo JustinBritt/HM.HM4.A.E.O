@@ -372,7 +372,7 @@
 
         public RedBlackTree<INullableValue<int>, INullableValue<decimal>> ScenarioUtilizedTimes { get; }
 
-        public ImmutableList<Tuple<Organization, INullableValue<int>>> SurgeonNumberAssignedOperatingRooms { get; }
+        public RedBlackTree<Organization, INullableValue<int>> SurgeonNumberAssignedOperatingRooms { get; }
 
         public ImmutableList<Tuple<Organization, INullableValue<int>>> SurgeonNumberAssignedWeekdays { get; }
 
