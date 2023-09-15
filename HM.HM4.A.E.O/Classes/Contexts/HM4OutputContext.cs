@@ -368,7 +368,7 @@
 
         public RedBlackTree<INullableValue<int>, INullableValue<decimal>> ScenarioUnderutilizations { get; }
 
-        public ImmutableList<Tuple<INullableValue<int>, INullableValue<decimal>>> ScenarioUnutilizedTimes { get; }
+        public RedBlackTree<INullableValue<int>, INullableValue<decimal>> ScenarioUnutilizedTimes { get; }
 
         public ImmutableList<Tuple<INullableValue<int>, INullableValue<decimal>>> ScenarioUtilizedTimes { get; }
 
