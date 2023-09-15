@@ -8,6 +8,8 @@
 
     using Hl7.Fhir.Model;
 
+    using NGenerics.DataStructures.Trees;
+
     using OPTANO.Modeling.Optimization;
 
     using HM.HM4.A.E.O.InterfacesAbstractFactories;
@@ -18,8 +20,7 @@
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioUtilizedTimes;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonScenarioNumberPatients;
-    using NGenerics.DataStructures.Trees;
-
+    
     internal sealed class HM4OutputContext : IHM4OutputContext
     {
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
