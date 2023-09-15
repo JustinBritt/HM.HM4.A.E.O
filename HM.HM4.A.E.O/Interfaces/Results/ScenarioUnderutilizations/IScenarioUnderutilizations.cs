@@ -5,6 +5,8 @@
 
     using Hl7.Fhir.Model;
 
+    using NGenerics.DataStructures.Trees;
+
     using HM.HM4.A.E.O.Interfaces.ResultElements.ScenarioUnderutilizations;
     using HM.HM4.A.E.O.InterfacesFactories.Dependencies.Hl7.Fhir.R4.Model;
 
@@ -12,7 +14,7 @@
     {
         ImmutableList<IScenarioUnderutilizationsResultElement> Value { get; }
 
-        ImmutableList<Tuple<INullableValue<int>, INullableValue<decimal>>> GetValueForOutputContext(
+        RedBlackTree<INullableValue<int>, INullableValue<decimal>> GetValueForOutputContext(
             INullableValueFactory nullableValueFactory);
     }
 }
