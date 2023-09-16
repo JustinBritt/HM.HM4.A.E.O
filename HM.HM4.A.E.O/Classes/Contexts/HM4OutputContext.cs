@@ -229,7 +229,9 @@
 
             this.DayScenarioRecoveryWardUtilizationExpectedValues = expectedValueI
                 .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                dependenciesAbstractFactory.CreateNullableValueFactory(),
+                HM4Model.t,
+                HM4Model.Λ);
 
             // VarianceI(t, Λ)
             Interfaces.Results.DayScenarioRecoveryWardUtilizations.IVarianceI varianceI = calculationsAbstractFactory.CreateVarianceICalculationFactory().Create()
@@ -348,7 +350,7 @@
 
         public RedBlackTree<FhirDateTime, RedBlackTree<INullableValue<int>, INullableValue<decimal>>> DayScenarioExpectedBedShortages { get; }
 
-        public ImmutableList<Tuple<FhirDateTime, INullableValue<int>, INullableValue<decimal>>> DayScenarioRecoveryWardUtilizationExpectedValues { get; }
+        public RedBlackTree<FhirDateTime, RedBlackTree<INullableValue<int>, INullableValue<decimal>>> DayScenarioRecoveryWardUtilizationExpectedValues { get; }
 
         public INullableValue<decimal> Gap { get; }
 

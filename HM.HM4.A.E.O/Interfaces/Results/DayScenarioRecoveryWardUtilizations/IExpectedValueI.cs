@@ -1,11 +1,13 @@
 ﻿namespace HM.HM4.A.E.O.Interfaces.Results.DayScenarioRecoveryWardUtilizations
 {
-    using System;
     using System.Collections.Immutable;
 
     using Hl7.Fhir.Model;
 
+    using NGenerics.DataStructures.Trees;
+
     using HM.HM4.A.E.O.Interfaces.IndexElements;
+    using HM.HM4.A.E.O.Interfaces.Indices;
     using HM.HM4.A.E.O.Interfaces.ResultElements.DayScenarioRecoveryWardUtilizations;
     using HM.HM4.A.E.O.InterfacesFactories.Dependencies.Hl7.Fhir.R4.Model;
 
@@ -17,7 +19,9 @@
             ItIndexElement tIndexElement,
             IΛIndexElement ΛIndexElement);
 
-        ImmutableList<Tuple<FhirDateTime, INullableValue<int>, INullableValue<decimal>>> GetValueForOutputContext(
-           INullableValueFactory nullableValueFactory);
+        RedBlackTree<FhirDateTime, RedBlackTree<INullableValue<int>, INullableValue<decimal>>> GetValueForOutputContext(
+           INullableValueFactory nullableValueFactory,
+           It t,
+           IΛ Λ);
     }
 }
