@@ -49,7 +49,8 @@
                     dependenciesAbstractFactory.CreateNullableValueFactory());
 
                 // IsFeasible
-                this.IsFeasible = true;
+                this.IsFeasible = dependenciesAbstractFactory.CreateNullableValueFactory().Create<bool>(
+                    true);
 
                 // NumberOfExploredNodes
                 this.NumberOfExploredNodes = resultsAbstractFactory.CreateNumberOfExploredNodesFactory().Create(
@@ -357,7 +358,8 @@
             } 
             else
             {
-                this.IsFeasible = false;
+                this.IsFeasible = dependenciesAbstractFactory.CreateNullableValueFactory().Create<bool>(
+                    false);
             }
         }
 
@@ -371,7 +373,7 @@
 
         public RedBlackTree<FhirDateTime, RedBlackTree<INullableValue<int>, INullableValue<decimal>>> DayScenarioRecoveryWardCensuses { get; }
 
-        public bool IsFeasible { get; }
+        public INullableValue<bool> IsFeasible { get; }
 
         public long NumberOfExploredNodes { get; }
 
