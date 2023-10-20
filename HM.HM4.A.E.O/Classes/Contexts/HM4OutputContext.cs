@@ -34,7 +34,7 @@
             IHM4Model HM4Model,
             Solution solution)
         {
-            if (solution?.ModelStatus == ModelStatus.Feasible)
+            if (solution.ModelStatus == ModelStatus.Feasible)
             {
                 // BestBound
                 this.BestBound = resultsAbstractFactory.CreateBestBoundFactory().Create(
