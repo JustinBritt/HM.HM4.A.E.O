@@ -11,6 +11,7 @@
     using NGenerics.DataStructures.Trees;
 
     using OPTANO.Modeling.Optimization;
+    using OPTANO.Modeling.Optimization.Solver;
 
     using HM.HM4.A.E.O.InterfacesAbstractFactories;
     using HM.HM4.A.E.O.Interfaces.Contexts;
@@ -20,7 +21,7 @@
     using HM.HM4.A.E.O.Interfaces.Results.ScenarioUtilizedTimes;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonOperatingRoomDayAssignments;
     using HM.HM4.A.E.O.Interfaces.Results.SurgeonScenarioNumberPatients;
-    
+
     internal sealed class HM4OutputContext : IHM4OutputContext
     {
         private ILog Log => LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -33,321 +34,331 @@
             IHM4Model HM4Model,
             Solution solution)
         {
-            // BestBound
-            this.BestBound = resultsAbstractFactory.CreateBestBoundFactory().Create(
-                (decimal)solution.BestBound)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+            if (solution?.ModelStatus == ModelStatus.Feasible)
+            {
+                // BestBound
+                this.BestBound = resultsAbstractFactory.CreateBestBoundFactory().Create(
+                    (decimal)solution.BestBound)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // Gap
-            this.Gap = resultsAbstractFactory.CreateGapFactory().Create(
-                (decimal)solution.Gap)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // Gap
+                this.Gap = resultsAbstractFactory.CreateGapFactory().Create(
+                    (decimal)solution.Gap)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // NumberOfExploredNodes
-            this.NumberOfExploredNodes = resultsAbstractFactory.CreateNumberOfExploredNodesFactory().Create(
-                solution.NumberOfExploredNodes)
-                .GetValueForOutputContext();
+                // IsFeasible
+                this.IsFeasible = true;
 
-            // ObjectiveValue
-            this.ObjectiveValue = resultsAbstractFactory.CreateObjectiveValueFactory().Create(
-                (decimal)solution.ObjectiveValues.SingleOrDefault().Value)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // NumberOfExploredNodes
+                this.NumberOfExploredNodes = resultsAbstractFactory.CreateNumberOfExploredNodesFactory().Create(
+                    solution.NumberOfExploredNodes)
+                    .GetValueForOutputContext();
 
-            // OverallWallTime
-            this.OverallWallTime = resultsAbstractFactory.CreateOverallWallTimeFactory().Create(
-                solution.OverallWallTime)
-                .GetValueForOutputContext();
+                // ObjectiveValue
+                this.ObjectiveValue = resultsAbstractFactory.CreateObjectiveValueFactory().Create(
+                    (decimal)solution.ObjectiveValues.SingleOrDefault().Value)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // IHat(t, Λ)
-            this.DayScenarioRecoveryWardCensuses = HM4Model.IHat.GetElementsAt(
-                dependenciesAbstractFactory.CreateRedBlackTreeFactory(),
-                resultElementsAbstractFactory.CreateIHatResultElementFactory(),
-                resultsAbstractFactory.CreateIHatFactory(),
-                HM4Model.t,
-                HM4Model.Λ)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // OverallWallTime
+                this.OverallWallTime = resultsAbstractFactory.CreateOverallWallTimeFactory().Create(
+                    solution.OverallWallTime)
+                    .GetValueForOutputContext();
 
-            // x(s, r, t)
-            Ix x = HM4Model.x.GetElementsAt(
-                resultElementsAbstractFactory.CreatexResultElementFactory(),
-                resultsAbstractFactory.CreatexFactory(),
-                HM4Model.r,
-                HM4Model.s,
-                HM4Model.t);
+                // IHat(t, Λ)
+                this.DayScenarioRecoveryWardCensuses = HM4Model.IHat.GetElementsAt(
+                    dependenciesAbstractFactory.CreateRedBlackTreeFactory(),
+                    resultElementsAbstractFactory.CreateIHatResultElementFactory(),
+                    resultsAbstractFactory.CreateIHatFactory(),
+                    HM4Model.t,
+                    HM4Model.Λ)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            this.SurgeonOperatingRoomDayAssignments = x
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // x(s, r, t)
+                Ix x = HM4Model.x.GetElementsAt(
+                    resultElementsAbstractFactory.CreatexResultElementFactory(),
+                    resultsAbstractFactory.CreatexFactory(),
+                    HM4Model.r,
+                    HM4Model.s,
+                    HM4Model.t);
 
-            // S1
-            this.S1 = calculationsAbstractFactory.CreateS1CalculationFactory().Create().Calculate(
-                resultElementsAbstractFactory.CreateS1ResultElementFactory(),
-                resultsAbstractFactory.CreateS1Factory(),
-                HM4Model.r,
-                HM4Model.Δ,
-                x)
-                .GetValueForOutputContext()
-                .ToImmutableSortedSet(new HM.HM4.A.E.O.Classes.Comparers.LocationComparer());
+                this.SurgeonOperatingRoomDayAssignments = x
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // S2
-            this.S2 = calculationsAbstractFactory.CreateS2CalculationFactory().Create().Calculate(
-                resultElementsAbstractFactory.CreateS2ResultElementFactory(),
-                resultsAbstractFactory.CreateS2Factory(),
-                HM4Model.d,
-                HM4Model.d,
-                HM4Model.r,
-                HM4Model.t,
-                HM4Model.rdd,
-                HM4Model.W,
-                HM4Model.Δ,
-                x)
-                .GetValueForOutputContext();
+                // S1
+                this.S1 = calculationsAbstractFactory.CreateS1CalculationFactory().Create().Calculate(
+                    resultElementsAbstractFactory.CreateS1ResultElementFactory(),
+                    resultsAbstractFactory.CreateS1Factory(),
+                    HM4Model.r,
+                    HM4Model.Δ,
+                    x)
+                    .GetValueForOutputContext()
+                    .ToImmutableSortedSet(new HM.HM4.A.E.O.Classes.Comparers.LocationComparer());
 
-            // SurgeonNumberAssignedOperatingRooms
-            this.SurgeonNumberAssignedOperatingRooms = calculationsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsCalculationFactory().Create().Calculate(
-                resultElementsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsResultElementFactory(),
-                resultsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsFactory(),
-                calculationsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsResultElementCalculationFactory().Create(),
-                HM4Model.s,
-                x)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // S2
+                this.S2 = calculationsAbstractFactory.CreateS2CalculationFactory().Create().Calculate(
+                    resultElementsAbstractFactory.CreateS2ResultElementFactory(),
+                    resultsAbstractFactory.CreateS2Factory(),
+                    HM4Model.d,
+                    HM4Model.d,
+                    HM4Model.r,
+                    HM4Model.t,
+                    HM4Model.rdd,
+                    HM4Model.W,
+                    HM4Model.Δ,
+                    x)
+                    .GetValueForOutputContext();
 
-            // SurgeonNumberAssignedWeekdays
-            this.SurgeonNumberAssignedWeekdays = calculationsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysCalculationFactory().Create().Calculate(
-                resultElementsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysResultElementFactory(),
-                resultsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysFactory(),
-                calculationsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysResultElementCalculationFactory().Create(),
-                HM4Model.s,
-                x)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // SurgeonNumberAssignedOperatingRooms
+                this.SurgeonNumberAssignedOperatingRooms = calculationsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsCalculationFactory().Create().Calculate(
+                    resultElementsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsResultElementFactory(),
+                    resultsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsFactory(),
+                    calculationsAbstractFactory.CreateSurgeonNumberAssignedOperatingRoomsResultElementCalculationFactory().Create(),
+                    HM4Model.s,
+                    x)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // SurgeonScenarioNumberPatients
-            ISurgeonScenarioNumberPatients surgeonScenarioNumberPatients = calculationsAbstractFactory.CreateSurgeonScenarioNumberPatientsCalculationFactory().Create().Calculate(
-                resultElementsAbstractFactory.CreateSurgeonScenarioNumberPatientsResultElementFactory(),
-                resultsAbstractFactory.CreateSurgeonScenarioNumberPatientsFactory(),
-                calculationsAbstractFactory.CreateSurgeonScenarioNumberPatientsResultElementCalculationFactory().Create(),
-                HM4Model.rt,
-                HM4Model.sΛ,
-                HM4Model.n,
-                x);
-            
-            this.SurgeonScenarioNumberPatients = surgeonScenarioNumberPatients.GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory(),
-                HM4Model.s,
-                HM4Model.Λ);
+                // SurgeonNumberAssignedWeekdays
+                this.SurgeonNumberAssignedWeekdays = calculationsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysCalculationFactory().Create().Calculate(
+                    resultElementsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysResultElementFactory(),
+                    resultsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysFactory(),
+                    calculationsAbstractFactory.CreateSurgeonNumberAssignedWeekdaysResultElementCalculationFactory().Create(),
+                    HM4Model.s,
+                    x)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // ScenarioNumberPatients(Λ)
-            this.ScenarioNumberPatients = calculationsAbstractFactory.CreateScenarioNumberPatientsCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateScenarioNumberPatientsResultElementFactory(),
-                resultsAbstractFactory.CreateScenarioNumberPatientsFactory(),
-                calculationsAbstractFactory.CreateScenarioNumberPatientsResultElementCalculationFactory().Create(),
-                HM4Model.Λ,
-                surgeonScenarioNumberPatients)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // SurgeonScenarioNumberPatients
+                ISurgeonScenarioNumberPatients surgeonScenarioNumberPatients = calculationsAbstractFactory.CreateSurgeonScenarioNumberPatientsCalculationFactory().Create().Calculate(
+                    resultElementsAbstractFactory.CreateSurgeonScenarioNumberPatientsResultElementFactory(),
+                    resultsAbstractFactory.CreateSurgeonScenarioNumberPatientsFactory(),
+                    calculationsAbstractFactory.CreateSurgeonScenarioNumberPatientsResultElementCalculationFactory().Create(),
+                    HM4Model.rt,
+                    HM4Model.sΛ,
+                    HM4Model.n,
+                    x);
 
-            // SurgicalSpecialtyNumberAssignedOperatingRooms
-            this.SurgicalSpecialtyNumberAssignedOperatingRooms = calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsCalculationFactory().Create().Calculate(
-                resultElementsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsResultElementFactory(),
-                resultsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsFactory(),
-                calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsResultElementCalculationFactory().Create(),
-                HM4Model.Δ,
-                x)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                this.SurgeonScenarioNumberPatients = surgeonScenarioNumberPatients.GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory(),
+                    HM4Model.s,
+                    HM4Model.Λ);
 
-            // SurgicalSpecialtyNumberAssignedWeekdays
-            this.SurgicalSpecialtyNumberAssignedWeekdays = calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysCalculationFactory().Create().Calculate(
-                resultElementsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysResultElementFactory(),
-                resultsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysFactory(),
-                calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysResultElementCalculationFactory().Create(),
-                HM4Model.Δ,
-                x)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // ScenarioNumberPatients(Λ)
+                this.ScenarioNumberPatients = calculationsAbstractFactory.CreateScenarioNumberPatientsCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateScenarioNumberPatientsResultElementFactory(),
+                    resultsAbstractFactory.CreateScenarioNumberPatientsFactory(),
+                    calculationsAbstractFactory.CreateScenarioNumberPatientsResultElementCalculationFactory().Create(),
+                    HM4Model.Λ,
+                    surgeonScenarioNumberPatients)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // z(s, t) 
-            Interfaces.Results.SurgeonDayAssignments.Iz z = HM4Model.z.GetElementsAt(
-                dependenciesAbstractFactory.CreateRedBlackTreeFactory(),
-                resultElementsAbstractFactory.CreatezResultElementFactory(),
-                resultsAbstractFactory.CreatezFactory(),
-                HM4Model.s,
-                HM4Model.t);
+                // SurgicalSpecialtyNumberAssignedOperatingRooms
+                this.SurgicalSpecialtyNumberAssignedOperatingRooms = calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsCalculationFactory().Create().Calculate(
+                    resultElementsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsResultElementFactory(),
+                    resultsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsFactory(),
+                    calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedOperatingRoomsResultElementCalculationFactory().Create(),
+                    HM4Model.Δ,
+                    x)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            this.SurgeonDayAssignments = z
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // SurgicalSpecialtyNumberAssignedWeekdays
+                this.SurgicalSpecialtyNumberAssignedWeekdays = calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysCalculationFactory().Create().Calculate(
+                    resultElementsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysResultElementFactory(),
+                    resultsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysFactory(),
+                    calculationsAbstractFactory.CreateSurgicalSpecialtyNumberAssignedWeekdaysResultElementCalculationFactory().Create(),
+                    HM4Model.Δ,
+                    x)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // ExpectedValueΦ(s, l, Λ)
-            Interfaces.Results.SurgeonDayScenarioCumulativeNumberPatients.IExpectedValueΦ expectedValueΦ = calculationsAbstractFactory.CreateExpectedValueΦCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateExpectedValueΦResultElementFactory(),
-                resultsAbstractFactory.CreateExpectedValueΦFactory(),
-                calculationsAbstractFactory.CreateExpectedValueΦResultElementCalculationFactory().Create(),
-                HM4Model.l,
-                HM4Model.s,
-                HM4Model.t,
-                HM4Model.Λ,
-                HM4Model.slΛ,
-                HM4Model.L,
-                HM4Model.p,
-                HM4Model.μ);
+                // z(s, t) 
+                Interfaces.Results.SurgeonDayAssignments.Iz z = HM4Model.z.GetElementsAt(
+                    dependenciesAbstractFactory.CreateRedBlackTreeFactory(),
+                    resultElementsAbstractFactory.CreatezResultElementFactory(),
+                    resultsAbstractFactory.CreatezFactory(),
+                    HM4Model.s,
+                    HM4Model.t);
 
-            // VarianceΦ(s, l, Λ)
-            Interfaces.Results.SurgeonDayScenarioCumulativeNumberPatients.IVarianceΦ varianceΦ = calculationsAbstractFactory.CreateVarianceΦCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateVarianceΦResultElementFactory(),
-                resultsAbstractFactory.CreateVarianceΦFactory(),
-                calculationsAbstractFactory.CreateVarianceΦResultElementCalculationFactory().Create(),
-                HM4Model.l,
-                HM4Model.s,
-                HM4Model.t,
-                HM4Model.Λ,
-                HM4Model.slΛ,
-                HM4Model.L,
-                HM4Model.p,
-                HM4Model.μ,
-                HM4Model.σ);
+                this.SurgeonDayAssignments = z
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // ExpectedValueI(t, Λ)
-            Interfaces.Results.DayScenarioRecoveryWardUtilizations.IExpectedValueI expectedValueI = calculationsAbstractFactory.CreateExpectedValueICalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateExpectedValueIResultElementFactory(),
-                resultsAbstractFactory.CreateExpectedValueIFactory(),
-                calculationsAbstractFactory.CreateExpectedValueIResultElementCalculationFactory().Create(),
-                HM4Model.l,
-                HM4Model.t,
-                HM4Model.st,
-                HM4Model.tΛ,
-                expectedValueΦ,
-                z);
+                // ExpectedValueΦ(s, l, Λ)
+                Interfaces.Results.SurgeonDayScenarioCumulativeNumberPatients.IExpectedValueΦ expectedValueΦ = calculationsAbstractFactory.CreateExpectedValueΦCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateExpectedValueΦResultElementFactory(),
+                    resultsAbstractFactory.CreateExpectedValueΦFactory(),
+                    calculationsAbstractFactory.CreateExpectedValueΦResultElementCalculationFactory().Create(),
+                    HM4Model.l,
+                    HM4Model.s,
+                    HM4Model.t,
+                    HM4Model.Λ,
+                    HM4Model.slΛ,
+                    HM4Model.L,
+                    HM4Model.p,
+                    HM4Model.μ);
 
-            this.DayScenarioRecoveryWardUtilizationExpectedValues = expectedValueI
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory(),
-                HM4Model.t,
-                HM4Model.Λ);
+                // VarianceΦ(s, l, Λ)
+                Interfaces.Results.SurgeonDayScenarioCumulativeNumberPatients.IVarianceΦ varianceΦ = calculationsAbstractFactory.CreateVarianceΦCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateVarianceΦResultElementFactory(),
+                    resultsAbstractFactory.CreateVarianceΦFactory(),
+                    calculationsAbstractFactory.CreateVarianceΦResultElementCalculationFactory().Create(),
+                    HM4Model.l,
+                    HM4Model.s,
+                    HM4Model.t,
+                    HM4Model.Λ,
+                    HM4Model.slΛ,
+                    HM4Model.L,
+                    HM4Model.p,
+                    HM4Model.μ,
+                    HM4Model.σ);
 
-            // VarianceI(t, Λ)
-            Interfaces.Results.DayScenarioRecoveryWardUtilizations.IVarianceI varianceI = calculationsAbstractFactory.CreateVarianceICalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateVarianceIResultElementFactory(),
-                resultsAbstractFactory.CreateVarianceIFactory(),
-                calculationsAbstractFactory.CreateVarianceIResultElementCalculationFactory().Create(),
-                HM4Model.l,
-                HM4Model.t,
-                HM4Model.st,
-                HM4Model.tΛ,
-                varianceΦ,
-                z);
+                // ExpectedValueI(t, Λ)
+                Interfaces.Results.DayScenarioRecoveryWardUtilizations.IExpectedValueI expectedValueI = calculationsAbstractFactory.CreateExpectedValueICalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateExpectedValueIResultElementFactory(),
+                    resultsAbstractFactory.CreateExpectedValueIFactory(),
+                    calculationsAbstractFactory.CreateExpectedValueIResultElementCalculationFactory().Create(),
+                    HM4Model.l,
+                    HM4Model.t,
+                    HM4Model.st,
+                    HM4Model.tΛ,
+                    expectedValueΦ,
+                    z);
 
-            this.DayScenarioRecoveryWardUtilizationVariances = varianceI
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory(),
-                HM4Model.t,
-                HM4Model.Λ);
+                this.DayScenarioRecoveryWardUtilizationExpectedValues = expectedValueI
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory(),
+                    HM4Model.t,
+                    HM4Model.Λ);
 
-            // EBS(t, Λ)
-            Interfaces.Results.DayScenarioExpectedBedShortages.IEBS EBS = calculationsAbstractFactory.CreateEBSCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateEBSResultElementFactory(),
-                resultsAbstractFactory.CreateEBSFactory(),
-                calculationsAbstractFactory.CreateEBSResultElementCalculationFactory().Create(),
-                HM4Model.tΛ,
-                HM4Model.Ω,
-                expectedValueI,
-                varianceI);
+                // VarianceI(t, Λ)
+                Interfaces.Results.DayScenarioRecoveryWardUtilizations.IVarianceI varianceI = calculationsAbstractFactory.CreateVarianceICalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateVarianceIResultElementFactory(),
+                    resultsAbstractFactory.CreateVarianceIFactory(),
+                    calculationsAbstractFactory.CreateVarianceIResultElementCalculationFactory().Create(),
+                    HM4Model.l,
+                    HM4Model.t,
+                    HM4Model.st,
+                    HM4Model.tΛ,
+                    varianceΦ,
+                    z);
 
-            this.DayScenarioExpectedBedShortages = EBS
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory(),
-                HM4Model.t,
-                HM4Model.Λ);
+                this.DayScenarioRecoveryWardUtilizationVariances = varianceI
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory(),
+                    HM4Model.t,
+                    HM4Model.Λ);
 
-            // TEBS(Λ)
-            Interfaces.Results.ScenarioTotalExpectedBedShortages.ITEBS TEBS_Λ = calculationsAbstractFactory.CreateTEBSΛCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateTEBSΛResultElementFactory(),
-                resultsAbstractFactory.CreateTEBSΛFactory(),
-                calculationsAbstractFactory.CreateTEBSΛResultElementCalculationFactory().Create(),
-                HM4Model.t,
-                HM4Model.Λ,
-                EBS);
+                // EBS(t, Λ)
+                Interfaces.Results.DayScenarioExpectedBedShortages.IEBS EBS = calculationsAbstractFactory.CreateEBSCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateEBSResultElementFactory(),
+                    resultsAbstractFactory.CreateEBSFactory(),
+                    calculationsAbstractFactory.CreateEBSResultElementCalculationFactory().Create(),
+                    HM4Model.tΛ,
+                    HM4Model.Ω,
+                    expectedValueI,
+                    varianceI);
 
-            this.ScenarioTotalExpectedBedShortages = TEBS_Λ
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                this.DayScenarioExpectedBedShortages = EBS
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory(),
+                    HM4Model.t,
+                    HM4Model.Λ);
 
-            // TEBS
-            this.TotalExpectedBedShortage = calculationsAbstractFactory.CreateTEBSCalculationFactory().Create()
-                .Calculate(
-                resultsAbstractFactory.CreateTEBSFactory(),
-                HM4Model.Λ,
-                HM4Model.Ρ,
-                TEBS_Λ)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // TEBS(Λ)
+                Interfaces.Results.ScenarioTotalExpectedBedShortages.ITEBS TEBS_Λ = calculationsAbstractFactory.CreateTEBSΛCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateTEBSΛResultElementFactory(),
+                    resultsAbstractFactory.CreateTEBSΛFactory(),
+                    calculationsAbstractFactory.CreateTEBSΛResultElementCalculationFactory().Create(),
+                    HM4Model.t,
+                    HM4Model.Λ,
+                    EBS);
 
-            // ScenarioTotalTimes(Λ)
-            IScenarioTotalTimes scenarioTotalTimes = calculationsAbstractFactory.CreateScenarioTotalTimesCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateScenarioTotalTimesResultElementFactory(),
-                resultsAbstractFactory.CreateScenarioTotalTimesFactory(),
-                calculationsAbstractFactory.CreateScenarioTotalTimesResultElementCalculationFactory().Create(),
-                HM4Model.Λ,
-                HM4Model.srt,
-                HM4Model.H,
-                x);
+                this.ScenarioTotalExpectedBedShortages = TEBS_Λ
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            this.ScenarioTotalTimes = scenarioTotalTimes.GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // TEBS
+                this.TotalExpectedBedShortage = calculationsAbstractFactory.CreateTEBSCalculationFactory().Create()
+                    .Calculate(
+                    resultsAbstractFactory.CreateTEBSFactory(),
+                    HM4Model.Λ,
+                    HM4Model.Ρ,
+                    TEBS_Λ)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // ScenarioUtilizedTimes(Λ)
-            IScenarioUtilizedTimes scenarioUtilizedTimes = calculationsAbstractFactory.CreateScenarioUtilizedTimesCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateScenarioUtilizedTimesResultElementFactory(),
-                resultsAbstractFactory.CreateScenarioUtilizedTimesFactory(),
-                calculationsAbstractFactory.CreateScenarioUtilizedTimesResultElementCalculationFactory().Create(),
-                HM4Model.Λ,
-                HM4Model.srt,
-                HM4Model.h,
-                HM4Model.n,
-                x);
+                // ScenarioTotalTimes(Λ)
+                IScenarioTotalTimes scenarioTotalTimes = calculationsAbstractFactory.CreateScenarioTotalTimesCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateScenarioTotalTimesResultElementFactory(),
+                    resultsAbstractFactory.CreateScenarioTotalTimesFactory(),
+                    calculationsAbstractFactory.CreateScenarioTotalTimesResultElementCalculationFactory().Create(),
+                    HM4Model.Λ,
+                    HM4Model.srt,
+                    HM4Model.H,
+                    x);
 
-            this.ScenarioUtilizedTimes = scenarioUtilizedTimes.GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                this.ScenarioTotalTimes = scenarioTotalTimes.GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // ScenarioUnutilizedTimes(Λ)
-            IScenarioUnutilizedTimes scenarioUnutilizedTimes = calculationsAbstractFactory.CreateScenarioUnutilizedTimesCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateScenarioUnutilizedTimesResultElementFactory(),
-                resultsAbstractFactory.CreateScenarioUnutilizedTimesFactory(),
-                calculationsAbstractFactory.CreateScenarioUnutilizedTimesResultElementCalculationFactory().Create(),
-                HM4Model.Λ,
-                scenarioTotalTimes,
-                scenarioUtilizedTimes);
+                // ScenarioUtilizedTimes(Λ)
+                IScenarioUtilizedTimes scenarioUtilizedTimes = calculationsAbstractFactory.CreateScenarioUtilizedTimesCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateScenarioUtilizedTimesResultElementFactory(),
+                    resultsAbstractFactory.CreateScenarioUtilizedTimesFactory(),
+                    calculationsAbstractFactory.CreateScenarioUtilizedTimesResultElementCalculationFactory().Create(),
+                    HM4Model.Λ,
+                    HM4Model.srt,
+                    HM4Model.h,
+                    HM4Model.n,
+                    x);
 
-            this.ScenarioUnutilizedTimes = scenarioUnutilizedTimes.GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                this.ScenarioUtilizedTimes = scenarioUtilizedTimes.GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
 
-            // ScenarioUnderutilizations(Λ)
-            this.ScenarioUnderutilizations = calculationsAbstractFactory.CreateScenarioUnderutilizationsCalculationFactory().Create()
-                .Calculate(
-                resultElementsAbstractFactory.CreateScenarioUnderutilizationsResultElementFactory(),
-                resultsAbstractFactory.CreateScenarioUnderutilizationsFactory(),
-                calculationsAbstractFactory.CreateScenarioUnderutilizationsResultElementCalculationFactory().Create(),
-                HM4Model.Λ,
-                scenarioTotalTimes,
-                scenarioUnutilizedTimes)
-                .GetValueForOutputContext(
-                dependenciesAbstractFactory.CreateNullableValueFactory());
+                // ScenarioUnutilizedTimes(Λ)
+                IScenarioUnutilizedTimes scenarioUnutilizedTimes = calculationsAbstractFactory.CreateScenarioUnutilizedTimesCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateScenarioUnutilizedTimesResultElementFactory(),
+                    resultsAbstractFactory.CreateScenarioUnutilizedTimesFactory(),
+                    calculationsAbstractFactory.CreateScenarioUnutilizedTimesResultElementCalculationFactory().Create(),
+                    HM4Model.Λ,
+                    scenarioTotalTimes,
+                    scenarioUtilizedTimes);
+
+                this.ScenarioUnutilizedTimes = scenarioUnutilizedTimes.GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
+
+                // ScenarioUnderutilizations(Λ)
+                this.ScenarioUnderutilizations = calculationsAbstractFactory.CreateScenarioUnderutilizationsCalculationFactory().Create()
+                    .Calculate(
+                    resultElementsAbstractFactory.CreateScenarioUnderutilizationsResultElementFactory(),
+                    resultsAbstractFactory.CreateScenarioUnderutilizationsFactory(),
+                    calculationsAbstractFactory.CreateScenarioUnderutilizationsResultElementCalculationFactory().Create(),
+                    HM4Model.Λ,
+                    scenarioTotalTimes,
+                    scenarioUnutilizedTimes)
+                    .GetValueForOutputContext(
+                    dependenciesAbstractFactory.CreateNullableValueFactory());
+            } 
+            else
+            {
+                this.IsFeasible = false;
+            }
         }
 
         public INullableValue<decimal> BestBound { get; }
@@ -359,6 +370,8 @@
         public INullableValue<decimal> Gap { get; }
 
         public RedBlackTree<FhirDateTime, RedBlackTree<INullableValue<int>, INullableValue<decimal>>> DayScenarioRecoveryWardCensuses { get; }
+
+        public bool IsFeasible { get; }
 
         public long NumberOfExploredNodes { get; }
 

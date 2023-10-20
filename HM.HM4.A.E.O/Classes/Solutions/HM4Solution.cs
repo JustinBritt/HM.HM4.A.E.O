@@ -78,43 +78,15 @@
                         if (solution?.ModelStatus == ModelStatus.Feasible)
                         {
                             model.Model.VariableCollections.ForEach(vc => vc.SetVariableValues(solution.VariableValues));
-
-                            HM4OutputContext = contextsAbstractFactory.CreateHM4OutputContextFactory().Create(
-                                calculationsAbstractFactory,
-                                dependenciesAbstractFactory,
-                                resultElementsAbstractFactory,
-                                resultsAbstractFactory,
-                                model,
-                                solution);
                         }
-                        else
-                        {
-                            while (modelStatus != ModelStatus.Feasible)
-                            {
-                                ConflictingSet conflictingSet = solution.ConflictingSet;
 
-                                model.Model.RemoveConstraints(
-                                    conflictingSet.ConstraintsLB.Where(w => w.IsRangeConstraint() == true).Select(w => w.Name));
-
-                                model.Model.RemoveConstraints(
-                                    conflictingSet.ConstraintsUB.Where(w => w.IsRangeConstraint() == true).Select(w => w.Name));
-
-                                solution = solver?.Solve(
-                                    model?.Model);
-
-                                modelStatus = (ModelStatus)(solution?.ModelStatus);
-                            }
-
-                            model.Model.VariableCollections.ForEach(vc => vc.SetVariableValues(solution.VariableValues));
-
-                            HM4OutputContext = contextsAbstractFactory.CreateHM4OutputContextFactory().Create(
-                                calculationsAbstractFactory,
-                                dependenciesAbstractFactory,
-                                resultElementsAbstractFactory,
-                                resultsAbstractFactory,
-                                model,
-                                solution);
-                        }
+                        HM4OutputContext = contextsAbstractFactory.CreateHM4OutputContextFactory().Create(
+                            calculationsAbstractFactory,
+                            dependenciesAbstractFactory,
+                            resultElementsAbstractFactory,
+                            resultsAbstractFactory,
+                            model,
+                            solution);
                     }
                 }
 
